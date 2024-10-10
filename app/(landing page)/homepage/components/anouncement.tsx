@@ -4,9 +4,13 @@ import React, { useState, useEffect } from "react";
 const AnnouncementBanner = () => {
   const [visible, setVisible] = useState(true);
   const [animationKey, setAnimationKey] = useState(0);
-  const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth >= 768);
+  const [isLargeScreen, setIsLargeScreen] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    setIsMounted(true);
+    setIsLargeScreen(window.innerWidth >= 768);
+
     const handleResize = () => {
       setIsLargeScreen(window.innerWidth >= 768);
     };
@@ -30,6 +34,7 @@ const AnnouncementBanner = () => {
     }
   }, [isLargeScreen]);
 
+  if (!isMounted) return null; // Don't render anything on the server side
   if (!visible && isLargeScreen) return null;
 
   return (
