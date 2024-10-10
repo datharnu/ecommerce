@@ -50,7 +50,7 @@ const CategoryItem: React.FC<CategoryItemProps> = ({ name, icon: Icon }) => (
 
 const ExploreCategories: React.FC = () => {
   return (
-    <div className="container mx-auto px-4 py-8 my-10 bg-white rounded-[5px]">
+    <div className="container mx-auto px-4 py-8 my-3 bg-white rounded-[5px]">
       <h2 className="lg:text-2xl text-xl font-bold mb-6  lg:mb-14">
         Explore Popular Categories
       </h2>
