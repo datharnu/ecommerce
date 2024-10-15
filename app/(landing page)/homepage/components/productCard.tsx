@@ -1,8 +1,9 @@
 "use client";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useRef, useState } from "react";
 import { ProductDatas } from "@/app/utils/ProductData";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const truncateTitle = (title: string, maxLength: number) => {
   if (title.length <= maxLength) return title;
@@ -33,47 +34,95 @@ const RatingStars = ({ rating }: { rating: number }) => {
 
 export default function ProductCard() {
   const router = useRouter();
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
 
   const handleProductClick = (productId: number) => {
     router.push(`/products/${productId}`);
   };
 
+  const scroll = (direction: "left" | "right") => {
+    const container = scrollContainerRef.current;
+    if (container) {
+      const scrollAmount = container.clientWidth;
+      container.scrollBy({
+        left: direction === "left" ? -scrollAmount : scrollAmount,
+        behavior: "smooth",
+      });
+    }
+  };
+
+  const checkScrollability = () => {
+    const container = scrollContainerRef.current;
+    if (container) {
+      setCanScrollLeft(container.scrollLeft > 0);
+      setCanScrollRight(
+        container.scrollLeft < container.scrollWidth - container.clientWidth
+      );
+    }
+  };
+
   return (
-    <div className="w-full overflow-x-auto">
-      <div className="flex gap-6 pb-4" style={{ minWidth: "max-content" }}>
-        {ProductDatas.map((product) => (
-          <div
-            key={product.id}
-            className="w-[200px] flex-shrink-0 bg-white hover:shadow-lg transition-shadow duration-300 rounded-lg overflow-hidden cursor-pointer"
-            onClick={() => handleProductClick(product.id)}
-          >
-            <div className="h-[200px] flex items-center justify-center ">
-              <Image
-                src={product.image}
-                alt={product.title}
-                width={180}
-                height={180}
-                className="object-contain max-h-[180px] w-auto"
-              />
-            </div>
-            <div className="p-4">
-              <p
-                className="text-sm font-medium h-10 overflow-hidden"
-                title={product.title}
-              >
-                {truncateTitle(product.title, 40)}
-              </p>
-              <p className="font-bold mt-2">${product.price.toFixed(2)}</p>
-              <div className="flex items-center mt-2">
-                <RatingStars rating={product.rating.rate} />
-                <span className="ml-1 text-xs text-gray-500">
-                  ({product.rating.count})
-                </span>
+    <div className="relative w-full">
+      <div
+        className="w-full overflow-x-auto scrollbar-hide"
+        ref={scrollContainerRef}
+        onScroll={checkScrollability}
+      >
+        <div className="flex gap-6 pb-4" style={{ minWidth: "max-content" }}>
+          {ProductDatas.map((product) => (
+            <div
+              key={product.id}
+              className="w-[200px] flex-shrink-0 bg-white hover:shadow-lg transition-shadow duration-300 rounded-lg overflow-hidden cursor-pointer"
+              onClick={() => handleProductClick(product.id)}
+            >
+              <div className="h-[200px] flex items-center justify-center ">
+                <Image
+                  src={product.image}
+                  alt={product.title}
+                  width={180}
+                  height={180}
+                  className="object-contain max-h-[180px] w-auto"
+                />
+              </div>
+              <div className="p-4">
+                <p
+                  className="text-sm font-medium h-10 overflow-hidden"
+                  title={product.title}
+                >
+                  {truncateTitle(product.title, 40)}
+                </p>
+                <p className="font-bold mt-2">${product.price.toFixed(2)}</p>
+                <div className="flex items-center mt-2">
+                  <RatingStars rating={product.rating.rate} />
+                  <span className="ml-1 text-xs text-gray-500">
+                    ({product.rating.count})
+                  </span>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
+      <button
+        className={`absolute left-0 top-1/2 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md ${
+          canScrollLeft ? "opacity-100" : "opacity-0 pointer-events-none"
+        } transition-opacity duration-300`}
+        onClick={() => scroll("left")}
+        aria-label="Scroll left"
+      >
+        <ChevronLeft className="w-6 h-6" />
+      </button>
+      <button
+        className={`absolute right-0 top-1/2 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md ${
+          canScrollRight ? "opacity-100" : "opacity-0 pointer-events-none"
+        } transition-opacity duration-300`}
+        onClick={() => scroll("right")}
+        aria-label="Scroll right"
+      >
+        <ChevronRight className="w-6 h-6" />
+      </button>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import { Star, MapPin } from "lucide-react";
+import { Star, MapPin, Info } from "lucide-react";
 import Image, { StaticImageData } from "next/image";
 import { ProductDatas } from "@/app/utils/ProductData";
 
@@ -35,16 +35,16 @@ export default async function ProductPage({ params }: ProductPageProps) {
   if (!product) return <div>Product not found</div>;
 
   return (
-    <div className="bg-slate-100 h-screen py-5 ">
-      <div className="bg-white  max-w-7xl shadow-xl mx-auto  p-8 border-4 flex flex-col md:flex-row ">
+    <div className="bg-slate-100 h-screen  py-10 ">
+      <div className="bg-white  max-w-7xl shadow-xl mx-auto  px-4 py-10  flex flex-col md:flex-row ">
         {/* Left column - Product Images */}
-        <div className="md:w-1/3 pr-4">
+        <div className="md:w-1/3 pr-4 mx-auto ">
           <Image
             src={product.image}
             alt={product.title}
             width={400}
             height={400}
-            className="w-[300px] h-auto"
+            className="w-[400px] h-auto"
           />
           <div className="flex mt-5">
             {[1, 2, 3, 4].map((i) => (
@@ -60,7 +60,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
           </div>
         </div>
         {/* Right column - Product Details */}
-        <div className="md:w-1/2 mt-4 md:mt-0 border-4">
+        <div className="md:w-1/2 mt-4 md:mt-0">
           <h1 className="text-lg font-semibold">{product.title}</h1>
           <div className="flex items-center mt-2">
             <span className="text-yellow-400 flex">
@@ -111,18 +111,59 @@ export default async function ProductPage({ params }: ProductPageProps) {
             </p>
           </div>
 
-          <div className="">
-            <p className="uppercase my-3 text-sm ">Promotions</p>
-            <div className="text-sm">
-              <li>Call +17006000000 To Place Your Order</li>
-              <li>
-                Need extra money? Loan up to N500,000 on the JumiaPay Android
-                app.
-              </li>
-              <li>
-                Enjoy cheaper shipping fees when you select a PickUp Station at
-                checkout.
-              </li>
+          <div className="max-w-2xl mx-auto  bg-white  rounded-lg mt-5">
+            <div className="mb-6 flex gap-14">
+              <h2 className="text-sm font-semibold mb-2">Shipping:</h2>
+              <div className="  w-1/2">
+                <p className=" text-sm">
+                  <span className="font-semibold"> US $185.00</span> Expedited
+                  International Shipping.{" "}
+                  <a href="#" className="text-blue-600 underline">
+                    See details
+                  </a>
+                </p>
+                <p className="text-sm text-gray-600 flex items-center">
+                  International shipment of items may be subject to customs
+                  processing and additional charges.
+                  <Info className="w-4 h-4 ml-1" />
+                </p>
+                <p className="text-sm text-gray-600 mt-2">
+                  Located in: Ota, Japan
+                </p>
+              </div>
+            </div>
+
+            <div className="mb-6 flex gap-14">
+              <h2 className="text-sm font-semibold mb-2">Delivery:</h2>
+              <div className="w-1/2">
+                <p className="text-sm font-semibold flex items-center">
+                  Estimated between Wed, Oct 30 and Mon, Nov 4 to 100211
+                  <Info className="w-4 h-4 ml-1" />
+                </p>
+                <p className="text-sm text-gray-600 mt-2">
+                  Includes <strong>5 business days</strong> handling time after
+                  receipt of cleared payment.
+                </p>
+                <p className="text-sm text-gray-600 mt-2">
+                  Please allow additional time if international delivery is
+                  subject to customs processing.
+                </p>
+              </div>
+            </div>
+
+            <div className="mb-6 flex gap-14">
+              <h2 className="text-sm font-bold mb-2">Returns:</h2>
+              <p className="text-sm">
+                30 days returns. Buyer pays for return shipping.{" "}
+                <a href="#" className="text-blue-600 underline">
+                  See details
+                </a>
+              </p>
+            </div>
+
+            <div>
+              <h2 className="text-sm font-bold mb-2">Payments:</h2>
+              <div className=" flex gap-14 space-x-2"></div>
             </div>
           </div>
         </div>
