@@ -2,6 +2,7 @@ import React from "react";
 import { Star, MapPin, Info } from "lucide-react";
 import Image, { StaticImageData } from "next/image";
 import { ProductDatas } from "@/app/utils/ProductData";
+import PaymentIcons from "./components/PaymentIcons";
 
 interface Product {
   id: number;
@@ -35,7 +36,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
   if (!product) return <div>Product not found</div>;
 
   return (
-    <div className="bg-slate-100 h-screen  py-10 ">
+    <div className="bg-slate-100 h-screen  lg:py-10 ">
       <div className="bg-white  max-w-7xl shadow-xl mx-auto  px-4 py-10  flex flex-col md:flex-row ">
         {/* Left column - Product Images */}
         <div className="md:w-1/3 pr-4 mx-auto ">
@@ -161,9 +162,11 @@ export default async function ProductPage({ params }: ProductPageProps) {
               </p>
             </div>
 
-            <div>
+            <div className="flex gap-12">
               <h2 className="text-sm font-bold mb-2">Payments:</h2>
-              <div className=" flex gap-14 space-x-2"></div>
+              <div className=" flex gap-14 space-x-2">
+                <PaymentIcons />
+              </div>
             </div>
           </div>
         </div>
