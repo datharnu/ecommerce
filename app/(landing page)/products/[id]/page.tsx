@@ -69,6 +69,8 @@ export default function ProductPage({ params }: ProductPageProps) {
                 key={index}
                 src={img}
                 alt={`Thumbnail ${index + 1}`}
+                width={400}
+                height={400}
                 className=" mr-2 cursor-pointer border-2  rounded-xl w-12 h-12"
                 onClick={() => setCurrentImage(img)}
               />
