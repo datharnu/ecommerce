@@ -1,8 +1,10 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import { Star, MapPin, Info } from "lucide-react";
 import Image, { StaticImageData } from "next/image";
 import { ProductDatas } from "@/app/utils/ProductData";
 import PaymentIcons from "./components/PaymentIcons";
+import ProductCard from "../../homepage/components/productCard";
 
 interface Product {
   id: number;
@@ -12,15 +14,14 @@ interface Product {
   category: string;
   brand: string;
   image: StaticImageData;
+  additionalImages: StaticImageData[];
   rating: {
     rate: number;
     count: number;
   };
 }
 
-async function getProduct(id: string): Promise<Product | undefined> {
-  // In a real application, you'd fetch this data from an API
-  // For now, we'll simulate this by finding the product in our static data
+function getProduct(id: string): Product | undefined {
   return ProductDatas.find((product) => product.id === parseInt(id));
 }
 
@@ -30,32 +31,46 @@ interface ProductPageProps {
   };
 }
 
-export default async function ProductPage({ params }: ProductPageProps) {
-  const product = await getProduct(params.id);
+export default function ProductPage({ params }: ProductPageProps) {
+  const [product, setProduct] = useState<Product | undefined>(undefined);
+  const [currentImage, setCurrentImage] = useState<StaticImageData | null>(
+    null
+  );
+
+  useEffect(() => {
+    const fetchedProduct = getProduct(params.id);
+    setProduct(fetchedProduct);
+    if (fetchedProduct) {
+      setCurrentImage(fetchedProduct.image);
+    }
+  }, [params.id]);
 
   if (!product) return <div>Product not found</div>;
 
   return (
-    <div className="bg-slate-100 h-screen  lg:py-10 ">
+    <div className="bg-slate-100   lg:py-10 ">
       <div className="bg-white  max-w-7xl shadow-xl mx-auto  px-4 py-10  flex flex-col md:flex-row ">
         {/* Left column - Product Images */}
         <div className="md:w-1/3 pr-4 mx-auto ">
-          <Image
-            src={product.image}
-            alt={product.title}
-            width={400}
-            height={400}
-            className="w-[400px] h-auto"
-          />
-          <div className="flex mt-5">
-            {[1, 2, 3, 4].map((i) => (
+          <div className="max-h-[400px]">
+            <div className=" w-full max-w-[400px] h-[300px] lg:h-[400px] flex items-center justify-center mt-10  ">
               <Image
-                key={i}
-                src={product.image}
-                alt={`Thumbnail ${i}`}
-                width={80}
-                height={80}
-                className="w-10 h-10 mr-2 cursor-pointer"
+                src={currentImage || product.image}
+                alt={product.title}
+                width={400}
+                height={400}
+                className="w-full max-h-[400px] "
+              />
+            </div>
+          </div>
+          <div className="flex mt-5   ">
+            {[product.image, ...product.additionalImages].map((img, index) => (
+              <Image
+                key={index}
+                src={img}
+                alt={`Thumbnail ${index + 1}`}
+                className=" mr-2 cursor-pointer border-2  rounded-xl w-12 h-12"
+                onClick={() => setCurrentImage(img)}
               />
             ))}
           </div>
@@ -171,8 +186,14 @@ export default async function ProductPage({ params }: ProductPageProps) {
           </div>
         </div>
       </div>
-      {/* Delivery column */}
-      {/* <div className="bg-white w-20 h-screen "></div> */}
+      {/* Product related */}
+      <div className="my-5 max-w-7xl mx-auto">
+        <div className="bg-white shadow-xl p-5 min-h-[45vh] rounded-[6px]">
+          <h1 className="font-bold mb-2">Products related to this item</h1>
+
+          <ProductCard />
+        </div>
+      </div>
     </div>
   );
 }
