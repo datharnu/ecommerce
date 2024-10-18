@@ -3,6 +3,7 @@ import Navbar from "@/components/shared/navbar";
 import React, { useState } from "react";
 import MiniChatbox from "./homepage/components/minichatbox";
 import Footer from "@/components/shared/footer";
+import { CartProvider } from "../context/cart-context";
 
 export default function LandingPagelayout({
   children,
@@ -20,7 +21,7 @@ export default function LandingPagelayout({
   };
 
   return (
-    <div>
+    <CartProvider>
       <Navbar />
       <main className="bg-slate-100 pb-10">{children}</main>
       <div className="fixed bottom-10 right-10">
@@ -51,6 +52,6 @@ export default function LandingPagelayout({
         )}
       </div>
       <Footer />
-    </div>
+    </CartProvider>
   );
 }

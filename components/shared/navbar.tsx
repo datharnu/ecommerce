@@ -7,13 +7,56 @@ import {
   Menu,
   X,
   ChevronDown,
+  Search,
+  AlertCircle,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import logo from "../../public/parallel.jpg";
+import { ProductDatas } from "@/app/utils/ProductData";
+
+// New component for search results
+const SearchResults: React.FC<{
+  results: typeof ProductDatas;
+  searchTerm: string;
+}> = ({ results, searchTerm }) => {
+  if (results.length === 0) {
+    return (
+      <div className="absolute top-full left-0 w-full bg-white shadow-md rounded-b-md p-4 z-50">
+        <div className="flex items-center justify-center text-gray-500">
+          <AlertCircle className="h-5 w-5 mr-2" />
+          <span>No products found for {searchTerm}</span>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="absolute top-full left-0 w-full bg-white shadow-md rounded-b-md p-4 z-50 max-h-96 overflow-y-auto">
+      {results.map((product) => (
+        <div key={product.id} className="flex items-center mb-4">
+          <Image
+            src={product.image}
+            alt={product.title}
+            width={50}
+            height={50}
+            className="object-cover rounded"
+          />
+          <div className="ml-4">
+            <h3 className="font-semibold">{product.title}</h3>
+            <p className="text-sm text-gray-500">${product.price.toFixed(2)}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
 
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [searchResults, setSearchResults] = useState<typeof ProductDatas>([]);
+  const [showResults, setShowResults] = useState<boolean>(false);
   const [activeDropdown, setActiveDropdown] = useState<
     "account" | "help" | null
   >(null);
@@ -22,8 +65,26 @@ const Navbar: React.FC = () => {
     setActiveDropdown(activeDropdown === dropdown ? null : dropdown);
   };
 
+  const handleSearch = () => {
+    const results = ProductDatas.filter(
+      (product) =>
+        product.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        product.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        product.brand.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setSearchResults(results);
+    setShowResults(true);
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
+    if (e.target.value === "") {
+      setShowResults(false);
+    }
+  };
+
   return (
-    <nav className="bg-white shadow-md">
+    <nav className="bg-white shadow-md relative">
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex justify-between items-center py-4">
           <Link href="/" className="lg:text-3xl font-bold text-orange-500">
@@ -53,11 +114,23 @@ const Navbar: React.FC = () => {
               <input
                 type="text"
                 placeholder="Search products, brands and categories"
-                className="py-1 rounded-[7px] w-[70%] ml-10 px-2 pr-10 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                className="py-1 rounded-l-[7px] w-[70%] ml-10 px-2 pr-10 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                value={searchTerm}
+                onChange={handleInputChange}
+                onKeyPress={(e) => e.key === "Enter" && handleSearch()}
               />
-              <button className="ml-5 bg-orange-500 text-white px-4 py-1 rounded-[7px]">
-                SEARCH
+              <button
+                className="ml-0 bg-orange-500 text-white px-4 py-1 rounded-r-[7px]"
+                onClick={handleSearch}
+              >
+                <Search className="h-5 w-5" />
               </button>
+              {showResults && (
+                <SearchResults
+                  results={searchResults}
+                  searchTerm={searchTerm}
+                />
+              )}
             </div>
             <NavLinks
               activeDropdown={activeDropdown}
@@ -81,12 +154,24 @@ const Navbar: React.FC = () => {
                   <input
                     type="text"
                     placeholder="Search products......"
-                    className="w-full py-1 px-4 rounded-[7px] border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                    className="w-full py-1 px-4 rounded-l-[7px] border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                    value={searchTerm}
+                    onChange={handleInputChange}
+                    onKeyPress={(e) => e.key === "Enter" && handleSearch()}
                   />
-                  <button className="absolute right-0 top-0 bg-orange-500 text-white px-4 py-1 rounded-[7px]">
-                    SEARCH
+                  <button
+                    className="absolute right-0 top-0 bg-orange-500 text-white px-4 py-1 rounded-r-[7px]"
+                    onClick={handleSearch}
+                  >
+                    <Search className="h-5 w-5" />
                   </button>
                 </div>
+                {showResults && (
+                  <SearchResults
+                    results={searchResults}
+                    searchTerm={searchTerm}
+                  />
+                )}
                 <NavLinks
                   mobile
                   activeDropdown={activeDropdown}
@@ -100,6 +185,8 @@ const Navbar: React.FC = () => {
     </nav>
   );
 };
+
+// ... Rest of the code (NavLinks component) remains the same
 
 interface NavLinksProps {
   mobile?: boolean;
@@ -146,27 +233,22 @@ const NavLinks: React.FC<NavLinksProps> = ({
               animate="visible"
               exit="hidden"
               transition={{ duration: 0.2 }}
-              className="absolute z-10 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5"
+              className="absolute z-50 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5"
             >
               <div className="py-1">
-                <Link
+                {/* <Link
                   href="/profile"
                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 >
                   Your Profile
-                </Link>
+                </Link> */}
                 <Link
                   href="/orders"
                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 >
                   Your Orders
                 </Link>
-                <Link
-                  href="/settings"
-                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                >
-                  Settings
-                </Link>
+
                 <Link
                   href="/logout"
                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
@@ -204,7 +286,7 @@ const NavLinks: React.FC<NavLinksProps> = ({
               transition={{ duration: 0.2 }}
               className="absolute z-10 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5"
             >
-              <div className="py-1">
+              <div className="py-1 z-50">
                 <Link
                   href="/faq"
                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
@@ -222,12 +304,6 @@ const NavLinks: React.FC<NavLinksProps> = ({
                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 >
                   Returns & Refunds
-                </Link>
-                <Link
-                  href="/shipping"
-                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                >
-                  Shipping Info
                 </Link>
               </div>
             </motion.div>

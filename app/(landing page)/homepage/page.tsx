@@ -7,9 +7,9 @@ import SellingItems from "./components/sellingItems";
 export default function Homepage() {
   return (
     <div className="bg-slate-100">
-      <AnnouncementBanner />
       <div className="text-xl lg:mx-36 ">
         <CarouselDemo />
+        <AnnouncementBanner />
         <ExploreCategories />
         <SellingItems />
       </div>

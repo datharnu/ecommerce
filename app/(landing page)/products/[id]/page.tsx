@@ -1,10 +1,17 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Star, MapPin, Info } from "lucide-react";
+import { Star, MapPin, Info, ShoppingCart } from "lucide-react";
 import Image, { StaticImageData } from "next/image";
 import { ProductDatas } from "@/app/utils/ProductData";
 import PaymentIcons from "./components/PaymentIcons";
 import ProductCard from "../../homepage/components/productCard";
+import { useCart } from "@/app/context/cart-context";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogContent,
+  AlertDialogDescription,
+} from "@/components/ui/alert-dialog";
 
 interface Product {
   id: number;
@@ -21,6 +28,12 @@ interface Product {
   };
 }
 
+interface CartProps {
+  productTitle: string;
+  onClose: () => void;
+  isOpen: boolean;
+}
+
 function getProduct(id: string): Product | undefined {
   return ProductDatas.find((product) => product.id === parseInt(id));
 }
@@ -33,17 +46,66 @@ interface ProductPageProps {
 
 export default function ProductPage({ params }: ProductPageProps) {
   const [product, setProduct] = useState<Product | undefined>(undefined);
+  const [isLoading, setIsLoading] = useState(true);
+  const { addToCart } = useCart();
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [currentImage, setCurrentImage] = useState<StaticImageData | null>(
     null
   );
 
   useEffect(() => {
-    const fetchedProduct = getProduct(params.id);
-    setProduct(fetchedProduct);
-    if (fetchedProduct) {
-      setCurrentImage(fetchedProduct.image);
-    }
+    const fetchProduct = async () => {
+      setIsLoading(true);
+      // Simulate an API call with setTimeout
+      setTimeout(() => {
+        const fetchedProduct = getProduct(params.id);
+        setProduct(fetchedProduct);
+        if (fetchedProduct) {
+          setCurrentImage(fetchedProduct.image);
+        }
+        setIsLoading(false);
+      }, 1000); // Simulate 1 second loading time
+    };
+
+    fetchProduct();
   }, [params.id]);
+
+  const AddToCartPopup = ({ isOpen, onClose, productTitle }: CartProps) => {
+    return (
+      <AlertDialog open={isOpen} onOpenChange={onClose}>
+        <AlertDialogContent className="text-white">
+          <div className="flex items-center space-x-2 mb-4">
+            <ShoppingCart className="h-6 w-6 text-green-500" />
+            <AlertDialogDescription className="text-lg font-semibold ">
+              Added to Cart
+            </AlertDialogDescription>
+          </div>
+          <p className="mb-4 ">{productTitle} has been added to your cart!</p>
+          <AlertDialogAction
+            onClick={onClose}
+            className="bg-yellow-400 text-black hover:text-white hover:bg-orange-600"
+          >
+            Continue Shopping
+          </AlertDialogAction>
+        </AlertDialogContent>
+      </AlertDialog>
+    );
+  };
+
+  const handleAddToCart = () => {
+    if (product) {
+      addToCart(product);
+      setIsPopupOpen(true);
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
+      </div>
+    );
+  }
 
   if (!product) return <div>Product not found</div>;
 
@@ -112,7 +174,10 @@ export default function ProductPage({ params }: ProductPageProps) {
             <p className="mt-2">{product.description}</p>
           </div>
           <div className="mt-4">
-            <button className="w-full bg-yellow-400 text-black py-2 rounded hover:bg-yellow-500">
+            <button
+              className="w-full bg-yellow-400 text-black py-2 rounded hover:bg-yellow-500"
+              onClick={handleAddToCart}
+            >
               Add to Cart
             </button>
             <button className="w-full bg-orange-400 text-black py-2 rounded mt-2 hover:bg-orange-500">
@@ -196,6 +261,11 @@ export default function ProductPage({ params }: ProductPageProps) {
           <ProductCard />
         </div>
       </div>
+      <AddToCartPopup
+        isOpen={isPopupOpen}
+        onClose={() => setIsPopupOpen(false)}
+        productTitle={product?.title}
+      />
     </div>
   );
 }
