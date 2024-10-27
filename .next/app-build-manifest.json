@@ -25,6 +25,11 @@
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/(landing page)/products/[id]/page.js"
+    ],
+    "/(landing page)/cart/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(landing page)/cart/page.js"
     ]
   }
 }

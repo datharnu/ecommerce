@@ -34,7 +34,7 @@ const ShippingAnnouncements = () => {
     return Math.abs(offset) * velocity;
   };
 
-  const paginate = (newDirection) => {
+  const paginate = (newDirection: number) => {
     setDirection(newDirection);
     setCurrentIndex(
       (prev) =>

@@ -37,7 +37,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({
   }
 
   return (
-    <div className="absolute top-full left-0 w-full bg-white shadow-md rounded-b-md p-4 z-50 max-h-96 overflow-y-auto">
+    <div className="absolute top-  lg:top-full left-0 w-full bg-white  shadow-md  rounded-b-md p-4 z-50 max-h-60 lg:max-h-96 overflow-y-auto">
       {results.map((product) => (
         <Link
           href={`/products/${product.id}`}
@@ -55,7 +55,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({
               />
             </div>
             <div className="ml-4 flex-grow">
-              <h3 className="font-semibold group-hover:text-orange-500 transition-colors duration-200">
+              <h3 className="font-semibold group-hover:text-orange-500 transition-colors duration-200 line-clamp-2">
                 {product.title}
               </h3>
               <p className="text-sm text-gray-500">

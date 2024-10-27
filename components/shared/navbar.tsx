@@ -105,20 +105,24 @@ const Navbar: React.FC = () => {
 
         <div className="hidden md:flex items-center gap-10 w-full">
           <div className="relative flex-grow mr-4">
-            <input
-              type="text"
-              placeholder="Search products, brands and categories"
-              className="py-1 rounded-l-[7px] w-[70%] ml-10 px-2 pr-10 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-              value={searchTerm}
-              onChange={handleInputChange}
-              onKeyPress={(e) => e.key === "Enter" && handleSearch()}
-            />
-            <button
-              className="ml-0 bg-orange-500 text-white px-4 py-1 rounded-r-[7px]"
-              onClick={handleSearch}
-            >
-              <Search className="h-5 w-5" />
-            </button>
+            <div className="flex items-center">
+              <input
+                type="text"
+                placeholder="Search products, brands and categories"
+                className="py-1 rounded-l-[7px] w-[70%] ml-10 px-2 pr-10 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-orange-500 focus:border-transparent"
+                value={searchTerm}
+                onChange={handleInputChange}
+                onKeyPress={(e) => e.key === "Enter" && handleSearch()}
+              />
+              <div>
+                <button
+                  className="ml-0 bg-orange-500 text-white px-4 py-[8px] rounded-r-[7px]"
+                  onClick={handleSearch}
+                >
+                  <Search className="h-5 w-5" />
+                </button>
+              </div>
+            </div>
             {showResults && (
               <SearchResults
                 results={searchResults}
@@ -153,13 +157,13 @@ const Navbar: React.FC = () => {
                 <input
                   type="text"
                   placeholder="Search products......"
-                  className="w-full py-1 px-4 rounded-l-[7px] border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                  className="w-full py-1 px-4 rounded-l-[7px] border border-gray-300 focus:outline-none focus:ring-1 focus:ring-orange-500 focus:border-transparent"
                   value={searchTerm}
                   onChange={handleInputChange}
                   onKeyPress={(e) => e.key === "Enter" && handleSearch()}
                 />
                 <button
-                  className="absolute right-0 top-0 bg-orange-500 text-white px-4 py-1 rounded-r-[7px]"
+                  className="absolute right-0 top-0 bg-orange-500 text-white px-4 py-[7px] rounded-r-[7px]"
                   onClick={handleSearch}
                 >
                   <Search className="h-5 w-5" />
