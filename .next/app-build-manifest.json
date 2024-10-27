@@ -1,25 +1,25 @@
 {
   "pages": {
-    "/(landing page)/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(landing page)/page.js"
-    ],
-    "/(landing page)/layout": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(landing page)/layout.js"
-    ],
     "/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
-    "/(landing page)/cart/page": [
+    "/(landing page)/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(landing page)/cart/page.js"
+      "static/chunks/app/(landing page)/layout.js"
+    ],
+    "/(landing page)/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(landing page)/page.js"
+    ],
+    "/api/auth/[auth0]/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/auth/[auth0]/route.js"
     ],
     "/(landing page)/products/[id]/page": [
       "static/chunks/webpack.js",

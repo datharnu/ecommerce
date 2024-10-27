@@ -2,7 +2,7 @@
 import Navbar from "@/components/shared/navbar";
 import React, { useState } from "react";
 import MiniChatbox from "./homepage/components/minichatbox";
-import Footer from "@/components/shared/footer";
+
 import { CartProvider } from "../context/cart-context";
 
 export default function LandingPagelayout({
@@ -51,7 +51,6 @@ export default function LandingPagelayout({
           />
         )}
       </div>
-      <Footer />
     </CartProvider>
   );
 }

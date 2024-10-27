@@ -39,9 +39,9 @@ function getProduct(id: string): Product | undefined {
 }
 
 interface ProductPageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 export default function ProductPage({ params }: ProductPageProps) {
@@ -56,19 +56,17 @@ export default function ProductPage({ params }: ProductPageProps) {
   useEffect(() => {
     const fetchProduct = async () => {
       setIsLoading(true);
-      // Simulate an API call with setTimeout
-      setTimeout(() => {
-        const fetchedProduct = getProduct(params.id);
-        setProduct(fetchedProduct);
-        if (fetchedProduct) {
-          setCurrentImage(fetchedProduct.image);
-        }
-        setIsLoading(false);
-      }, 1000); // Simulate 1 second loading time
+      const resolvedParams = await params; // Unwrap the params
+      const fetchedProduct = getProduct(resolvedParams.id);
+      setProduct(fetchedProduct);
+      if (fetchedProduct) {
+        setCurrentImage(fetchedProduct.image);
+      }
+      setIsLoading(false);
     };
 
     fetchProduct();
-  }, [params.id]);
+  }, [params]);
 
   const AddToCartPopup = ({ isOpen, onClose, productTitle }: CartProps) => {
     return (
@@ -80,7 +78,7 @@ export default function ProductPage({ params }: ProductPageProps) {
               Added to Cart
             </AlertDialogDescription>
           </div>
-          <p className="mb-4 ">{productTitle} has been added to your cart!</p>
+          <p className="mb-4">{productTitle} has been added to your cart!</p>
           <AlertDialogAction
             onClick={onClose}
             className="bg-yellow-400 text-black hover:text-white hover:bg-orange-600"
@@ -110,22 +108,22 @@ export default function ProductPage({ params }: ProductPageProps) {
   if (!product) return <div>Product not found</div>;
 
   return (
-    <div className="bg-slate-100   lg:py-10 ">
-      <div className="bg-white  max-w-7xl shadow-xl mx-auto  px-4 py-10  flex flex-col md:flex-row ">
+    <div className="bg-slate-100 lg:py-10">
+      <div className="bg-white max-w-7xl shadow-xl mx-auto px-4 py-10 flex flex-col md:flex-row">
         {/* Left column - Product Images */}
-        <div className="md:w-1/3 pr-4 mx-auto ">
+        <div className="md:w-1/3 pr-4 mx-auto">
           <div className="max-h-[400px]">
-            <div className=" w-full max-w-[400px] h-[300px] lg:h-[400px] flex items-center justify-center mt-10  ">
+            <div className="w-full max-w-[400px] h-[300px] lg:h-[400px] flex items-center justify-center mt-10">
               <Image
                 src={currentImage || product.image}
                 alt={product.title}
                 width={400}
                 height={400}
-                className="w-full max-h-[400px] "
+                className="w-full max-h-[400px]"
               />
             </div>
           </div>
-          <div className="flex mt-5   ">
+          <div className="flex mt-5">
             {[product.image, ...product.additionalImages].map((img, index) => (
               <Image
                 key={index}
@@ -133,7 +131,7 @@ export default function ProductPage({ params }: ProductPageProps) {
                 alt={`Thumbnail ${index + 1}`}
                 width={400}
                 height={400}
-                className=" mr-2 cursor-pointer border-2  rounded-xl w-12 h-12"
+                className="mr-2 cursor-pointer border-2 rounded-xl w-12 h-12"
                 onClick={() => setCurrentImage(img)}
               />
             ))}
@@ -194,11 +192,11 @@ export default function ProductPage({ params }: ProductPageProps) {
             </p>
           </div>
 
-          <div className="max-w-2xl mx-auto  bg-white  rounded-lg mt-5">
+          <div className="max-w-2xl mx-auto bg-white rounded-lg mt-5">
             <div className="mb-6 flex gap-14">
               <h2 className="text-sm font-semibold mb-2">Shipping:</h2>
-              <div className="  w-1/2">
-                <p className=" text-sm">
+              <div className="w-1/2">
+                <p className="text-sm">
                   <span className="font-semibold"> US $185.00</span> Expedited
                   International Shipping.{" "}
                   <a href="#" className="text-blue-600 underline">
@@ -246,7 +244,7 @@ export default function ProductPage({ params }: ProductPageProps) {
 
             <div className="flex gap-12">
               <h2 className="text-sm font-bold mb-2">Payments:</h2>
-              <div className=" flex gap-14 space-x-2">
+              <div className="flex gap-14 space-x-2">
                 <PaymentIcons />
               </div>
             </div>

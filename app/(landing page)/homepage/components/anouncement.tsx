@@ -1,60 +1,114 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
-const AnnouncementBanner = () => {
-  const [visible, setVisible] = useState(true);
-  const [animationKey, setAnimationKey] = useState(0);
-  const [isLargeScreen, setIsLargeScreen] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
+const ShippingAnnouncements = () => {
+  const announcements = [
+    "Free AU shipping on all orders",
+    "Welcome to Kalaamatu",
+  ];
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [direction, setDirection] = useState(1); // 1 for right, -1 for left
+
+  const slideVariants = {
+    enter: (direction: number) => ({
+      x: direction > 0 ? 1000 : -1000,
+      opacity: 0,
+    }),
+    center: {
+      zIndex: 1,
+      x: 0,
+      opacity: 1,
+    },
+    exit: (direction: number) => ({
+      zIndex: 0,
+      x: direction < 0 ? 1000 : -1000,
+      opacity: 0,
+    }),
+  };
+
+  const swipeConfidenceThreshold = 10000;
+  const swipePower = (offset: number, velocity: number) => {
+    return Math.abs(offset) * velocity;
+  };
+
+  const paginate = (newDirection) => {
+    setDirection(newDirection);
+    setCurrentIndex(
+      (prev) =>
+        (prev + newDirection + announcements.length) % announcements.length
+    );
+  };
 
   useEffect(() => {
-    setIsMounted(true);
-    setIsLargeScreen(window.innerWidth >= 768);
+    const timer = setInterval(() => {
+      paginate(1);
+    }, 10000);
 
-    const handleResize = () => {
-      setIsLargeScreen(window.innerWidth >= 768);
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => window.removeEventListener("resize", handleResize);
+    return () => clearInterval(timer);
   }, []);
 
-  useEffect(() => {
-    if (isLargeScreen) {
-      const interval = setInterval(() => {
-        setVisible(false);
-        setTimeout(() => {
-          setAnimationKey((prev) => prev + 1);
-          setVisible(true);
-        }, 500);
-      }, 5000);
-
-      return () => clearInterval(interval);
-    }
-  }, [isLargeScreen]);
-
-  if (!isMounted) return null; // Don't render anything on the server side
-  if (!visible && isLargeScreen) return null;
-
   return (
-    <div className="bg-blue-600 text-white p-4 text-center text-xs lg:text-base relative overflow-hidden">
-      {isLargeScreen ? (
-        <span className="inline-block animate-slideIn " key={animationKey}>
-          🎉 Special Offer! 20% off all items. Use code: SUMMER20 🛍️
-        </span>
-      ) : (
-        <div className="whitespace-nowrap animate-scroll">
-          <span className="inline-block px-4">
-            🎉 Special Offer! 20% off all items. Use code: SUMMER20 🛍️
-          </span>
-          <span className="inline-block px-4">
-            🎉 Special Offer! 20% off all items. Use code: SUMMER20 🛍️
-          </span>
+    <div className=" py-3 bg-blue-600 ">
+      <div className="max-w-screen-xl lg:mx-72 mx-8   flex items-center justify-between ">
+        <button
+          onClick={() => paginate(-1)}
+          className="p-1 hover:bg-gray-200 rounded-full z-10"
+          aria-label="Previous announcement"
+        >
+          <ChevronLeft className="w-3 h-3 text-white" />
+        </button>
+
+        <div
+          className="mx-4 relative overflow-hidden w-[300px] h-[24px]"
+          style={{
+            background: "rgb(var(--color-background))",
+            color: "white",
+          }}
+        >
+          <AnimatePresence initial={false} custom={direction}>
+            <motion.div
+              key={currentIndex}
+              custom={direction}
+              variants={slideVariants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{
+                x: { type: "spring", stiffness: 100, damping: 30 },
+                opacity: { duration: 3 },
+              }}
+              className="absolute w-full text-center text-xs tracking-widest  "
+              drag="x"
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={1}
+              onDragEnd={(e, { offset, velocity }) => {
+                const swipe = swipePower(offset.x, velocity.x);
+
+                if (swipe < -swipeConfidenceThreshold) {
+                  paginate(1);
+                } else if (swipe > swipeConfidenceThreshold) {
+                  paginate(-1);
+                }
+              }}
+            >
+              {announcements[currentIndex]}
+            </motion.div>
+          </AnimatePresence>
         </div>
-      )}
+
+        <button
+          onClick={() => paginate(1)}
+          className="p-1 hover:bg-gray-200 rounded-full z-10"
+          aria-label="Next announcement"
+        >
+          <ChevronRight className="w-3 h-3 text-white" />
+        </button>
+      </div>
     </div>
   );
 };
 
-export default AnnouncementBanner;
+export default ShippingAnnouncements;
