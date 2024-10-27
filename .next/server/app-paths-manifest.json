@@ -1,4 +1,5 @@
 {
-  "/(landing page)/products/[id]/page": "app/(landing page)/products/[id]/page.js",
-  "/(landing page)/page": "app/(landing page)/page.js"
+  "/api/auth/[auth0]/route": "app/api/auth/[auth0]/route.js",
+  "/(landing page)/page": "app/(landing page)/page.js",
+  "/(landing page)/products/[id]/page": "app/(landing page)/products/[id]/page.js"
 }

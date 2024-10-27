@@ -67,10 +67,14 @@ const AuthNav = () => {
   return (
     <div className="relative z-50 ">
       {!user ? (
-        <Button asChild className="min-w-[100px]">
+        <Button
+          variant={"ghost"}
+          asChild
+          className="min-w-[100px] -ml-5 hover:text-orange-500"
+        >
           <a href="/api/auth/login" className="flex items-center">
             <LogIn className="h-4 w-4 mr-2" />
-            Login
+            <span className="text-sm lg:text-base"> Login</span>
           </a>
         </Button>
       ) : (
