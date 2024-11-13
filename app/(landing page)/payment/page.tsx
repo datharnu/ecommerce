@@ -19,8 +19,6 @@ import ShippingForm from "./components/shipping-form";
 
 const PaymentPage = () => {
   const [selectedMethod, setSelectedMethod] = useState<string | null>(null);
-  const [isProcessing, setIsProcessing] = useState(false);
-  const [cryptoPaymentDetails, setCryptoPaymentDetails] = useState(null);
   const [walletAddress, setWalletAddress] = useState("");
   const [showWalletAddress, setShowWalletAddress] = useState(false);
   const [walletAddressTimeout, setWalletAddressTimeout] = useState<ReturnType<
@@ -33,7 +31,6 @@ const PaymentPage = () => {
   const searchParams = useSearchParams();
   const productTitle = searchParams.get("title");
   const price = Number(searchParams.get("price"));
-  const productId = searchParams.get("id");
   const router = useRouter();
 
   const paymentOptions = [

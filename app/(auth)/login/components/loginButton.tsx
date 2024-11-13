@@ -34,7 +34,7 @@ export default function LoginButton() {
     });
 
     return () => subscription.unsubscribe();
-  }, []);
+  }, []); // Keep this empty to only run once
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();

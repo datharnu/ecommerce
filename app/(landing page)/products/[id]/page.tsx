@@ -20,7 +20,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import PaymentModal from "../../payment/page";
 import { AlertDialogTitle } from "@radix-ui/react-alert-dialog";
-import Link from "next/link";
+
 import CardComponent from "@/components/shared/CardComponent";
 import AuthBuyButton from "../../payment/components/AuthByButton";
 
@@ -60,7 +60,7 @@ export default function ProductPage({ params }: ProductPageProps) {
   const [isLoading, setIsLoading] = useState(true);
   const { addToCart } = useCart();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
+
   const [currentImage, setCurrentImage] = useState<StaticImageData | null>(
     null
   );
@@ -191,16 +191,6 @@ export default function ProductPage({ params }: ProductPageProps) {
               Add to Cart
             </button>
 
-            {/* <button
-              className="w-full bg-orange-400 text-black py-2 rounded mt-2 hover:bg-orange-500"
-              onClick={() => {
-                window.location.href = `/payment?title=${encodeURIComponent(
-                  product.title
-                )}&price=${product.price}&id=${product.id}`;
-              }}
-            >
-              Buy Now
-            </button> */}
             <AuthBuyButton product={product} />
           </div>
 

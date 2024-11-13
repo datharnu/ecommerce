@@ -12,8 +12,24 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { createClient } from "@/app/utils/superbase/client";
 import { User } from "@supabase/supabase-js";
+import { StaticImageData } from "next/image";
 
-const AuthBuyButton = ({ product }: { product: any }) => {
+interface Product {
+  id: number;
+  title: string;
+  price: number;
+  description: string;
+  category: string;
+  brand: string;
+  image?: StaticImageData;
+  additionalImages?: StaticImageData[];
+  rating: {
+    rate: number;
+    count: number;
+  };
+}
+
+const AuthBuyButton = ({ product }: { product: Product }) => {
   const [showAuthModal, setShowAuthModal] = useState(false);
 
   // Explicitly set the type to User | null
