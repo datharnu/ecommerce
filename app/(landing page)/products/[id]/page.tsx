@@ -18,7 +18,7 @@ import {
   AlertDialogContent,
   AlertDialogDescription,
 } from "@/components/ui/alert-dialog";
-import PaymentModal from "../../payment/page";
+
 import { AlertDialogTitle } from "@radix-ui/react-alert-dialog";
 
 import CardComponent from "@/components/shared/CardComponent";
