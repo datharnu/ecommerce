@@ -84,10 +84,10 @@ export const NavLinks: React.FC<NavLinksProps> = ({
                   Contact Us
                 </Link>
                 <Link
-                  href="/returns"
+                  href="/terms"
                   className="block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100"
                 >
-                  Returns & Refunds
+                  Terms of Service
                 </Link>
               </div>
             </motion.div>
