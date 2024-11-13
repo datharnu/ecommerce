@@ -1,5 +1,38 @@
 {
-  "node": {},
+  "node": {
+    "b962d49ce7e6ff52ce25b7c282aa5fb120fc1a66": {
+      "workers": {
+        "app/(landing page)/page": {
+          "moduleId": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fanu%2FDesktop%2Fe-commerce%2022%2Fmy-app%2Fapp%2F(auth)%2Flogin%2Factions%2Fpage.ts%22%2C%5B%22login%22%2C%22signup%22%5D%5D%5D&encryptionKey=3LvCody8QHsRxzpgANeZapUDpdyoPTwhsTOMFCy9GTg%3D&__client_imported__=true!",
+          "async": false
+        },
+        "app/(auth)/login/page": {
+          "moduleId": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fanu%2FDesktop%2Fe-commerce%2022%2Fmy-app%2Fapp%2F(auth)%2Flogin%2Factions%2Fpage.ts%22%2C%5B%22login%22%2C%22signup%22%5D%5D%5D&encryptionKey=3LvCody8QHsRxzpgANeZapUDpdyoPTwhsTOMFCy9GTg%3D&__client_imported__=true!",
+          "async": false
+        }
+      },
+      "layer": {
+        "app/(landing page)/page": "action-browser",
+        "app/(auth)/login/page": "action-browser"
+      }
+    },
+    "f6c4175330d6ce6452997604c7f574098ad363c6": {
+      "workers": {
+        "app/(landing page)/page": {
+          "moduleId": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fanu%2FDesktop%2Fe-commerce%2022%2Fmy-app%2Fapp%2F(auth)%2Flogin%2Factions%2Fpage.ts%22%2C%5B%22login%22%2C%22signup%22%5D%5D%5D&encryptionKey=3LvCody8QHsRxzpgANeZapUDpdyoPTwhsTOMFCy9GTg%3D&__client_imported__=true!",
+          "async": false
+        },
+        "app/(auth)/login/page": {
+          "moduleId": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fanu%2FDesktop%2Fe-commerce%2022%2Fmy-app%2Fapp%2F(auth)%2Flogin%2Factions%2Fpage.ts%22%2C%5B%22login%22%2C%22signup%22%5D%5D%5D&encryptionKey=3LvCody8QHsRxzpgANeZapUDpdyoPTwhsTOMFCy9GTg%3D&__client_imported__=true!",
+          "async": false
+        }
+      },
+      "layer": {
+        "app/(landing page)/page": "action-browser",
+        "app/(auth)/login/page": "action-browser"
+      }
+    }
+  },
   "edge": {},
   "encryptionKey": "3LvCody8QHsRxzpgANeZapUDpdyoPTwhsTOMFCy9GTg="
 }

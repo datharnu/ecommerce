@@ -1,17 +1,28 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Star, MapPin, Info, ShoppingCart } from "lucide-react";
+import { Star, Info, ShoppingCart } from "lucide-react";
 import Image, { StaticImageData } from "next/image";
 import { ProductDatas } from "@/app/utils/ProductData";
-import PaymentIcons from "./components/PaymentIcons";
+// import PaymentIcons from "./components/PaymentIcons";
 import ProductCard from "../../homepage/components/productCard";
 import { useCart } from "@/app/context/cart-context";
+import bitcoin from "../../../../public/bitcoin.png";
+import binance from "../../../../public/binance.png";
+import ethereum from "../../../../public/ethereum.png";
+import solana from "../../../../public/solana.png";
+import usdt from "../../../../public/money.png";
+import cardImage from "../../../../public/s-l960.webp";
 import {
   AlertDialog,
   AlertDialogAction,
   AlertDialogContent,
   AlertDialogDescription,
 } from "@/components/ui/alert-dialog";
+import PaymentModal from "../../payment/page";
+import { AlertDialogTitle } from "@radix-ui/react-alert-dialog";
+import Link from "next/link";
+import CardComponent from "@/components/shared/CardComponent";
+import AuthBuyButton from "../../payment/components/AuthByButton";
 
 interface Product {
   id: number;
@@ -49,6 +60,7 @@ export default function ProductPage({ params }: ProductPageProps) {
   const [isLoading, setIsLoading] = useState(true);
   const { addToCart } = useCart();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
   const [currentImage, setCurrentImage] = useState<StaticImageData | null>(
     null
   );
@@ -71,14 +83,16 @@ export default function ProductPage({ params }: ProductPageProps) {
   const AddToCartPopup = ({ isOpen, onClose, productTitle }: CartProps) => {
     return (
       <AlertDialog open={isOpen} onOpenChange={onClose}>
-        <AlertDialogContent className="text-white">
+        <AlertDialogContent className="text-white bg-black/60">
           <div className="flex items-center space-x-2 mb-4">
             <ShoppingCart className="h-6 w-6 text-green-500" />
-            <AlertDialogDescription className="text-lg font-semibold ">
+            <AlertDialogTitle className="text-lg font-semibold ">
               Added to Cart
-            </AlertDialogDescription>
+            </AlertDialogTitle>
           </div>
-          <p className="mb-4">{productTitle} has been added to your cart!</p>
+          <AlertDialogDescription className="mb-4">
+            {productTitle} has been added to your cart!
+          </AlertDialogDescription>
           <AlertDialogAction
             onClick={onClose}
             className="bg-yellow-400 text-black hover:text-white hover:bg-orange-600"
@@ -108,8 +122,8 @@ export default function ProductPage({ params }: ProductPageProps) {
   if (!product) return <div>Product not found</div>;
 
   return (
-    <div className="bg-slate-100 lg:py-10">
-      <div className="bg-white max-w-7xl shadow-xl mx-auto px-4 py-10 flex flex-col md:flex-row">
+    <div className=" lg:py-10">
+      <div className=" max-w-7xl  mx-auto px-4 py-10 flex flex-col md:flex-row">
         {/* Left column - Product Images */}
         <div className="md:w-1/3 pr-4 mx-auto">
           <div className="max-h-[400px]">
@@ -139,7 +153,7 @@ export default function ProductPage({ params }: ProductPageProps) {
         </div>
         {/* Right column - Product Details */}
         <div className="md:w-1/2 mt-4 md:mt-0">
-          <h1 className="text-lg font-semibold">{product.title}</h1>
+          <h1 className="text-lg font-semibold ">{product.title}</h1>
           <div className="flex items-center mt-2">
             <span className="text-yellow-400 flex">
               {[...Array(Math.floor(product.rating.rate))].map((_, i) => (
@@ -163,9 +177,7 @@ export default function ProductPage({ params }: ProductPageProps) {
             <span className="text-xl font-bold">
               ${product.price.toFixed(2)}
             </span>
-            <p className="text-sm text-gray-600">
-              $214.70 Shipping & Import Fees Deposit to Nigeria
-            </p>
+            <p className="text-sm text-gray-600"></p>
           </div>
           <div className="mt-4">
             <h2 className="font-semibold">About this item</h2>
@@ -178,51 +190,38 @@ export default function ProductPage({ params }: ProductPageProps) {
             >
               Add to Cart
             </button>
-            <button className="w-full bg-orange-400 text-black py-2 rounded mt-2 hover:bg-orange-500">
+
+            {/* <button
+              className="w-full bg-orange-400 text-black py-2 rounded mt-2 hover:bg-orange-500"
+              onClick={() => {
+                window.location.href = `/payment?title=${encodeURIComponent(
+                  product.title
+                )}&price=${product.price}&id=${product.id}`;
+              }}
+            >
               Buy Now
-            </button>
-          </div>
-          <div className="mt-4 flex items-center">
-            <MapPin size={16} />
-            <span className="ml-2">Deliver to Nigeria</span>
-          </div>
-          <div className="mt-4">
-            <p className="text-red-600 font-semibold">
-              Only 2 left in stock - order soon.
-            </p>
+            </button> */}
+            <AuthBuyButton product={product} />
           </div>
 
-          <div className="max-w-2xl mx-auto bg-white rounded-lg mt-5">
+          <div className="max-w-2xl mx-auto  rounded-lg mt-5">
             <div className="mb-6 flex gap-14">
               <h2 className="text-sm font-semibold mb-2">Shipping:</h2>
               <div className="w-1/2">
-                <p className="text-sm">
-                  <span className="font-semibold"> US $185.00</span> Expedited
-                  International Shipping.{" "}
-                  <a href="#" className="text-blue-600 underline">
-                    See details
-                  </a>
-                </p>
                 <p className="text-sm text-gray-600 flex items-center">
                   International shipment of items may be subject to customs
                   processing and additional charges.
                   <Info className="w-4 h-4 ml-1" />
                 </p>
-                <p className="text-sm text-gray-600 mt-2">
-                  Located in: Ota, Japan
-                </p>
+                <p className="text-sm text-gray-600 mt-2"></p>
               </div>
             </div>
 
             <div className="mb-6 flex gap-14">
               <h2 className="text-sm font-semibold mb-2">Delivery:</h2>
               <div className="w-1/2">
-                <p className="text-sm font-semibold flex items-center">
-                  Estimated between Wed, Oct 30 and Mon, Nov 4 to 100211
-                  <Info className="w-4 h-4 ml-1" />
-                </p>
-                <p className="text-sm text-gray-600 mt-2">
-                  Includes <strong>5 business days</strong> handling time after
+                <p className="text-sm text-gray-600 ">
+                  Includes <strong>3 business days</strong> handling time after
                   receipt of cleared payment.
                 </p>
                 <p className="text-sm text-gray-600 mt-2">
@@ -242,14 +241,27 @@ export default function ProductPage({ params }: ProductPageProps) {
               </p>
             </div>
 
-            <div className="flex gap-12">
+            <div className="flex gap-12 items-center">
               <h2 className="text-sm font-bold mb-2">Payments:</h2>
-              <div className="flex gap-14 space-x-2">
-                <PaymentIcons />
+              <div className="flex gap-2 space-x-2 max-w-7">
+                <Image src={bitcoin} alt="bitcoin" />
+                <Image src={ethereum} alt="ethereum" />
+                <Image src={binance} alt="binance" />
+                <Image src={solana} alt="solana" />
+                <Image src={usdt} alt="usdt" />
               </div>
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="my-10 max-w-7xl mx-auto">
+        <CardComponent
+          title={"  The best Cards won't last long"}
+          subTitle="Don't miss this chance to save with code TCGIFT24"
+          offer="  Ends Dec 25.Min.spend $50. Max.$30 off.T&Cs."
+          image={cardImage}
+        />
       </div>
       {/* Product related */}
       <div className="my-5 max-w-7xl mx-auto">
@@ -259,6 +271,7 @@ export default function ProductPage({ params }: ProductPageProps) {
           <ProductCard />
         </div>
       </div>
+
       <AddToCartPopup
         isOpen={isPopupOpen}
         onClose={() => setIsPopupOpen(false)}

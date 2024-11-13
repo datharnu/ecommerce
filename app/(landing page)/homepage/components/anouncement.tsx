@@ -4,10 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const ShippingAnnouncements = () => {
-  const announcements = [
-    "Free AU shipping on all orders",
-    "Welcome to Kalaamatu",
-  ];
+  const announcements = ["Free US shipping on all orders", "Welcome to Myshop"];
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(1); // 1 for right, -1 for left
@@ -51,7 +48,7 @@ const ShippingAnnouncements = () => {
   }, []);
 
   return (
-    <div className=" py-3 bg-blue-600 ">
+    <div className=" py-3 bg-[#f58d08] ">
       <div className="max-w-screen-xl lg:mx-72 mx-8   flex items-center justify-between ">
         <button
           onClick={() => paginate(-1)}

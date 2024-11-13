@@ -12,6 +12,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useCart } from "@/app/context/cart-context";
+import AuthBuyButton from "../payment/components/AuthByButton";
 
 export default function CartPage() {
   const { cart, removeFromCart, updateQuantity, clearCart } = useCart();
@@ -33,6 +34,7 @@ export default function CartPage() {
     }
   };
 
+  // Check if the cart is empty
   if (cart.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center h-screen">
@@ -43,6 +45,15 @@ export default function CartPage() {
       </div>
     );
   }
+
+  // Pass the cart to the AuthBuyButton (all items in the cart)
+  const productsForPurchase = cart.map((item) => ({
+    id: item.id,
+    title: item.title,
+    price: item.price,
+    quantity: item.quantity,
+    image: item.image, // Assuming you need to send image URL or StaticImageData
+  }));
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -113,7 +124,8 @@ export default function CartPage() {
               </div>
             </CardContent>
             <CardFooter className="flex flex-col space-y-2">
-              <Button className="w-full">Proceed to Checkout</Button>
+              {/* Passing the array of products to AuthBuyButton */}
+              <AuthBuyButton product={productsForPurchase} />
               <Button variant="outline" className="w-full" onClick={clearCart}>
                 Clear Cart
               </Button>

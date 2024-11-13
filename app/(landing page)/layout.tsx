@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import MiniChatbox from "./homepage/components/minichatbox";
 
 import { CartProvider } from "../context/cart-context";
+import Footer from "@/components/shared/footer";
 
 export default function LandingPagelayout({
   children,
@@ -23,7 +24,7 @@ export default function LandingPagelayout({
   return (
     <CartProvider>
       <Navbar />
-      <main className="bg-slate-100 pb-10">{children}</main>
+      <main className="bg-[#fffbf9] pb-10">{children}</main>
       <div className="fixed bottom-10 right-10">
         <a
           href="#"
@@ -51,6 +52,7 @@ export default function LandingPagelayout({
           />
         )}
       </div>
+      <Footer />
     </CartProvider>
   );
 }

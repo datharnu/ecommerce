@@ -44,7 +44,7 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ images }) => {
   };
 
   return (
-    <section className="flex  flex-col bg-bgImg bg-cover bg-center h-[70vh] lg:h-[100%] items-center py-8 px-4 md:flex-row md:gap-8 md:py-20 md:px-8">
+    <section className="flex  flex-col bg-bgImg bg-cover opacity-80 bg-center h-[70vh] lg:h-[100%] items-center py-8 px-4 md:flex-row md:gap-8 md:py-20 md:px-8">
       <div className="relative w-36 max-w-xs mb-8 md:mb-0 md:w-1/2 ">
         <div className="relative overflow-hidden rounded-full  aspect-square bg-white">
           {images.map((image, index) => (
@@ -88,7 +88,7 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ images }) => {
           ))}
         </div>
       </div>
-      <div className="text-center md:text-left md:w-1/2 ">
+      <div className="text-center md:text-left md:w-1/2 text-white ">
         <div className="mb-4">
           <h2 className="text-2xl font-bold">Deal of the Week!</h2>
         </div>
@@ -98,7 +98,7 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ images }) => {
         <p className="lg:text-4xl text-2xl font-extrabold mb-4 transition-all duration-300 ease-in-out">
           50% OFF
         </p>
-        <button className="w-full max-w-xs mx-auto md:mx-0 bg-yellow-400 text-gray-800 px-4 py-2 rounded-full font-semibold hover:bg-yellow-300 transition-colors duration-300">
+        <button className="w-full max-w-xs mx-auto md:mx-0 bg-[#f58d08] text-gray-800 px-4 py-2 rounded-full font-semibold hover:bg-orange-400 transition-colors duration-300">
           Shop Now
         </button>
       </div>

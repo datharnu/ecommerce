@@ -24,7 +24,7 @@ const config: Config = {
         scroll: "scroll 20s linear infinite",
       },
       backgroundImage: {
-        bgImg: "url('/pexels.jpg')",
+        bgImg: "url('/shopphoto.jpg')",
       },
       colors: {
         background: "hsl(var(--background))",
