@@ -13,8 +13,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 import { useState } from "react";
-import { login, signup } from "./actions/page";
+
 import { useToast } from "@/hooks/use-toast";
+import { login, signup } from "./actions/action";
 
 export default function LoginPage() {
   const { toast } = useToast();
@@ -49,18 +50,15 @@ export default function LoginPage() {
         // Add delay before redirect
         await new Promise((resolve) => setTimeout(resolve, 8000));
       }
-      // } catch (e) {
-      //   const errorMessage =
-      //     e instanceof Error ? e.message : "An unexpected error occurred";
-      //   setError(errorMessage);
-      //   toast({
-      //     variant: "destructive",
-      //     title: action === "login" ? "Login failed" : "Signup failed",
-      //     description: errorMessage,
-      //   });
-      // } finally {
-      //   setIsLoading(false);
-      // }
+    } catch (e) {
+      const errorMessage =
+        e instanceof Error ? e.message : "An unexpected error occurred";
+      setError(errorMessage);
+      toast({
+        variant: "destructive",
+        title: action === "login" ? "Login failed" : "Signup failed",
+        description: errorMessage,
+      });
     } finally {
       setIsLoading(false);
     }
