@@ -1481,6 +1481,10 @@ video {
 .bg-inherit {
   background-color: inherit;
 }
+.bg-red-300 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(252 165 165 / var(--tw-bg-opacity));
+}
 .bg-opacity-50 {
   --tw-bg-opacity: 0.5;
 }
@@ -2662,6 +2666,10 @@ body {
     margin-bottom: 2.5rem;
   }
 
+  .lg\:mb-56 {
+    margin-bottom: 14rem;
+  }
+
   .lg\:flex {
     display: flex;
   }
@@ -2750,6 +2758,10 @@ body {
   .lg\:text-sm {
     font-size: 0.875rem;
     line-height: 1.25rem;
+  }
+
+  .lg\:text-\[15px\] {
+    font-size: 15px;
   }
 }
 .\[\&\+div\]\:text-xs+div {

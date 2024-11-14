@@ -153,9 +153,6 @@ const ShippingForm = () => {
             <div className="mb-8">
               <div className="flex justify-between items-center mb-6">
                 <h2 className="text-2xl font-bold">Contact</h2>
-                <Button variant="link" className="text-gray-600">
-                  Log in
-                </Button>
               </div>
 
               <div className="space-y-4">

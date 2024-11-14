@@ -3,11 +3,11 @@ import React from "react";
 export default function ContactPage() {
   return (
     <section className="">
-      <div className="flex flex-col items-center justify-cente mb-56">
+      <div className="flex flex-col items-center justify-cente lg:mb-56 mx-5">
         <div className="text-center text-[20px] font-bold mt-20 mb-10">
           <h1>Contact Us</h1>
         </div>
-        <div className="text-center text-[15px] max-w-5xl flex flex-col gap-5 ">
+        <div className="text-center text-sm lg:text-[15px] max-w-5xl flex flex-col gap-5 ">
           <div>
             <p>
               E-mail: service@adoredvintage.com or click on the chat bot icon on
