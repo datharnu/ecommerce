@@ -25,6 +25,7 @@ const config: Config = {
       },
       backgroundImage: {
         bgImg: "url('/shopphoto.jpg')",
+        bgLogin: "url(/pexelbg.jpg)",
       },
       colors: {
         background: "hsl(var(--background))",

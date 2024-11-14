@@ -1,5 +1,5 @@
 import React from "react";
 
 export default function TermsPage() {
-  return <div>TermsPage</div>;
+  return <div className="bg-bgLogin">TermsPage</div>;
 }
