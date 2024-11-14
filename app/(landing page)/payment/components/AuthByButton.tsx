@@ -340,12 +340,16 @@ const AuthBuyButton: React.FC<AuthBuyButtonProps> = ({ products }) => {
 
   return (
     <>
-      <Button className="w-full" variant="default" onClick={handleBuyClick}>
+      <Button
+        className="w-full my-2 hover:bg-[#FF6B00] text-white py-2 rounded bg-orange-400"
+        variant="default"
+        onClick={handleBuyClick}
+      >
         Proceed to Checkout
       </Button>
 
       <Dialog open={showAuthModal} onOpenChange={setShowAuthModal}>
-        <DialogContent>
+        <DialogContent className="bg-white">
           <DialogHeader>
             <DialogTitle>Authentication Required</DialogTitle>
             <DialogDescription>
@@ -357,7 +361,7 @@ const AuthBuyButton: React.FC<AuthBuyButtonProps> = ({ products }) => {
               <Link href="/login">Login</Link>
             </Button>
             <Button asChild>
-              <Link href="/signup">Sign Up</Link>
+              <Link href="/login">Sign Up</Link>
             </Button>
           </DialogFooter>
         </DialogContent>

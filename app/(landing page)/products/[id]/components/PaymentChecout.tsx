@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, ChangeEvent } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -13,8 +13,22 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import { HelpCircle } from "lucide-react";
 
+interface FormData {
+  email: string;
+  newsletter: boolean;
+  country: string;
+  firstName: string;
+  lastName: string;
+  address: string;
+  apartment: string;
+  city: string;
+  state: string;
+  zipCode: string;
+  phone: string;
+}
+
 const ShippingForm = () => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     email: "",
     newsletter: false,
     country: "United States",
@@ -28,7 +42,7 @@ const ShippingForm = () => {
     phone: "",
   });
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
@@ -50,7 +64,7 @@ const ShippingForm = () => {
     }));
   };
 
-  const handleSubmit = (e: { preventDefault: () => void }) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("Form submitted:", formData);
     // Handle form submission logic here
@@ -158,7 +172,9 @@ const ShippingForm = () => {
                   <Select
                     value={formData.state}
                     onValueChange={(value) =>
-                      handleInputChange({ target: { name: "state", value } })
+                      handleInputChange({
+                        target: { name: "state", value },
+                      } as ChangeEvent<HTMLInputElement>)
                     }
                   >
                     <SelectTrigger>

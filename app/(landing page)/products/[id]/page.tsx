@@ -273,7 +273,7 @@ export default function ProductPage({ params }: ProductPageProps) {
           </div>
           <div className="mt-4">
             <button
-              className="w-full bg-yellow-400 text-black py-2 rounded hover:bg-yellow-500"
+              className="w-full bg-yellow-400 text-white py-2 rounded hover:bg-yellow-500"
               onClick={handleAddToCart}
             >
               Add to Cart
