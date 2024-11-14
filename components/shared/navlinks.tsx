@@ -84,7 +84,7 @@ export const NavLinks: React.FC<NavLinksProps> = ({
                   Contact Us
                 </Link>
                 <Link
-                  href="/terms"
+                  href="/terms-of-service"
                   className="block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100"
                 >
                   Terms of Service

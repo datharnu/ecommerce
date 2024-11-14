@@ -24,6 +24,21 @@ import { AlertDialogTitle } from "@radix-ui/react-alert-dialog";
 import CardComponent from "@/components/shared/CardComponent";
 import AuthBuyButton from "../../payment/components/AuthByButton";
 
+// interface Product {
+//   id: number;
+//   title: string;
+//   price: number;
+//   description: string;
+//   category: string;
+//   brand: string;
+//   image: StaticImageData;
+//   additionalImages: StaticImageData[];
+//   rating: {
+//     rate: number;
+//     count: number;
+//   };
+// }
+
 interface Product {
   id: number;
   title: string;
@@ -37,6 +52,7 @@ interface Product {
     rate: number;
     count: number;
   };
+  quantity?: number; // Make quantity optional since it's not in the original product data
 }
 
 interface CartProps {
@@ -56,19 +72,42 @@ interface ProductPageProps {
 }
 
 export default function ProductPage({ params }: ProductPageProps) {
+  // const [product, setProduct] = useState<Product | undefined>(undefined);
+  // const [isLoading, setIsLoading] = useState(true);
+  // const { addToCart } = useCart();
+  // const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+  // const [currentImage, setCurrentImage] = useState<StaticImageData | null>(
+  //   null
+  // );
+
   const [product, setProduct] = useState<Product | undefined>(undefined);
   const [isLoading, setIsLoading] = useState(true);
   const { addToCart } = useCart();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-
   const [currentImage, setCurrentImage] = useState<StaticImageData | null>(
     null
   );
 
+  // useEffect(() => {
+  //   const fetchProduct = async () => {
+  //     setIsLoading(true);
+  //     const resolvedParams = await params; // Unwrap the params
+  //     const fetchedProduct = getProduct(resolvedParams.id);
+  //     setProduct(fetchedProduct);
+  //     if (fetchedProduct) {
+  //       setCurrentImage(fetchedProduct.image);
+  //     }
+  //     setIsLoading(false);
+  //   };
+
+  //   fetchProduct();
+  // }, [params]);
+
   useEffect(() => {
     const fetchProduct = async () => {
       setIsLoading(true);
-      const resolvedParams = await params; // Unwrap the params
+      const resolvedParams = await params;
       const fetchedProduct = getProduct(resolvedParams.id);
       setProduct(fetchedProduct);
       if (fetchedProduct) {
@@ -79,6 +118,47 @@ export default function ProductPage({ params }: ProductPageProps) {
 
     fetchProduct();
   }, [params]);
+
+  // const AddToCartPopup = ({ isOpen, onClose, productTitle }: CartProps) => {
+  //   return (
+  //     <AlertDialog open={isOpen} onOpenChange={onClose}>
+  //       <AlertDialogContent className="text-white bg-black/60">
+  //         <div className="flex items-center space-x-2 mb-4">
+  //           <ShoppingCart className="h-6 w-6 text-green-500" />
+  //           <AlertDialogTitle className="text-lg font-semibold ">
+  //             Added to Cart
+  //           </AlertDialogTitle>
+  //         </div>
+  //         <AlertDialogDescription className="mb-4">
+  //           {productTitle} has been added to your cart!
+  //         </AlertDialogDescription>
+  //         <AlertDialogAction
+  //           onClick={onClose}
+  //           className="bg-yellow-400 text-black hover:text-white hover:bg-orange-600"
+  //         >
+  //           Continue Shopping
+  //         </AlertDialogAction>
+  //       </AlertDialogContent>
+  //     </AlertDialog>
+  //   );
+  // };
+
+  // const handleAddToCart = () => {
+  //   if (product) {
+  //     addToCart(product);
+  //     setIsPopupOpen(true);
+  //   }
+  // };
+
+  // if (isLoading) {
+  //   return (
+  //     <div className="flex justify-center items-center h-screen">
+  //       <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
+  //     </div>
+  //   );
+  // }
+
+  // if (!product) return <div>Product not found</div>;
 
   const AddToCartPopup = ({ isOpen, onClose, productTitle }: CartProps) => {
     return (
@@ -120,6 +200,14 @@ export default function ProductPage({ params }: ProductPageProps) {
   }
 
   if (!product) return <div>Product not found</div>;
+
+  // Create a single-item array with the product and add quantity
+  const productForPurchase = [
+    {
+      ...product,
+      quantity: 1, // Set default quantity to 1 for direct purchase
+    },
+  ];
 
   return (
     <div className=" lg:py-10">
@@ -191,7 +279,7 @@ export default function ProductPage({ params }: ProductPageProps) {
               Add to Cart
             </button>
 
-            <AuthBuyButton product={product} />
+            <AuthBuyButton products={productForPurchase} />
           </div>
 
           <div className="max-w-2xl mx-auto  rounded-lg mt-5">
