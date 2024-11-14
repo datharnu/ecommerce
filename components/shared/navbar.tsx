@@ -4,7 +4,7 @@ import { Menu, X, Search } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import logo from "../../public/parallel.jpg";
-import { ProductDatas } from "@/app/utils/ProductData";
+import { AllProductDatas, ProductDatas } from "@/app/utils/ProductData";
 import { useAuth0 } from "@auth0/auth0-react";
 import SearchResults from "./SearchResults";
 import NavLinks from "./navlinks";
@@ -40,7 +40,7 @@ const Navbar: React.FC = () => {
       return;
     }
 
-    const results = ProductDatas.filter(
+    const results = AllProductDatas.filter(
       (product) =>
         product.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
         product.description.toLowerCase().includes(searchTerm.toLowerCase()) ||

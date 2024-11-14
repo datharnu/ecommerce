@@ -2664,6 +2664,10 @@ body {
     grid-template-columns: repeat(8, minmax(0, 1fr));
   }
 
+  .lg\:grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
   .lg\:gap-10 {
     gap: 2.5rem;
   }
