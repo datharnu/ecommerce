@@ -11,19 +11,20 @@ export default function TermsPage() {
         </div>
         <p className="text-[14px] mb-4">
           This website is operated by MyShop, LLC. Throughout the site, the
-          terms “we”, “us” and “our” refer to MyShop, LLC. MyShop, LLC offers
-          this website, including all information, tools and services available
-          from this site to you, the user, conditioned upon your acceptance of
-          all terms, conditions, policies and notices stated here.
+          terms “we&apos;, “us&apos; and “our&apos; refer to MyShop, LLC.
+          MyShop, LLC offers this website, including all information, tools and
+          services available from this site to you, the user, conditioned upon
+          your acceptance of all terms, conditions, policies and notices stated
+          here.
         </p>
         <p className="text-[14px] mb-4">
           By visiting our site and/ or purchasing something from us, you engage
-          in our “Service” and agree to be bound by the following terms and
-          conditions (“Terms of Service”, “Terms”), including those additional
-          terms and conditions and policies referenced herein and/or available
-          by hyperlink. These Terms of Service apply to all users of the site,
-          including without limitation users who are browsers, vendors,
-          customers, merchants, and/ or contributors of content.
+          in our “Service&apos; and agree to be bound by the following terms and
+          conditions (“Terms of Service&apos;, “Terms&apos;), including those
+          additional terms and conditions and policies referenced herein and/or
+          available by hyperlink. These Terms of Service apply to all users of
+          the site, including without limitation users who are browsers,
+          vendors, customers, merchants, and/ or contributors of content.
         </p>
         <p className="text-[14px] mb-4">
           Please read these Terms of Service carefully before accessing or using
@@ -49,11 +50,11 @@ export default function TermsPage() {
           <h2 className="text-sm mb-4">TERMS OF SERVICE OVERVIEW</h2>
           <p className="text-[14px]">
             This website is operated by MyShop, LLC. Throughout the site, the
-            terms "we", "us" and "our" refer to MyShop, LLC. MyShop, LLC offers
-            this website, including all information, tools and services
-            available from this site to you, the user, conditioned upon your
-            acceptance of all terms, conditions, policies and notices stated
-            here.
+            terms &apos;we&apos;, &apos;us&apos; and &apos;our&apos; refer to
+            MyShop, LLC. MyShop, LLC offers this website, including all
+            information, tools and services available from this site to you, the
+            user, conditioned upon your acceptance of all terms, conditions,
+            policies and notices stated here.
           </p>
         </section>
         <section>
@@ -165,18 +166,18 @@ export default function TermsPage() {
           <p className="text-[14px]">
             We may provide you with access to third-party tools over which we
             neither monitor nor have any control nor input. You acknowledge and
-            agree that we provide access to such tools ”as is” and “as
-            available” without any warranties, representations or conditions of
-            any kind and without any endorsement. We shall have no liability
-            whatsoever arising from or relating to your use of optional
-            third-party tools. Any use by you of optional tools offered through
-            the site is entirely at your own risk and discretion and you should
-            ensure that you are familiar with and approve of the terms on which
-            tools are provided by the relevant third-party provider(s). We may
-            also, in the future, offer new services and/or features through the
-            website (including, the release of new tools and resources). Such
-            new features and/or services shall also be subject to these Terms of
-            Service.
+            agree that we provide access to such tools &apos;as is&apos; and “as
+            available&apos; without any warranties, representations or
+            conditions of any kind and without any endorsement. We shall have no
+            liability whatsoever arising from or relating to your use of
+            optional third-party tools. Any use by you of optional tools offered
+            through the site is entirely at your own risk and discretion and you
+            should ensure that you are familiar with and approve of the terms on
+            which tools are provided by the relevant third-party provider(s). We
+            may also, in the future, offer new services and/or features through
+            the website (including, the release of new tools and resources).
+            Such new features and/or services shall also be subject to these
+            Terms of Service.
           </p>
         </section>
         <section>

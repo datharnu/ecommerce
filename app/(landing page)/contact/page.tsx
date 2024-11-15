@@ -9,7 +9,7 @@ export default function ContactPage() {
             Contact Us
           </h1>
           <p className="text-gray-600 mt-2 text-sm lg:text-base">
-            We're here to help! Get in touch with us for any inquiries.
+            We&apos;re here to help! Get in touch with us for any inquiries.
           </p>
         </div>
         <div className="bg-white shadow-lg rounded-lg p-8 lg:p-12 text-sm lg:text-base">
