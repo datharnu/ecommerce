@@ -87,7 +87,7 @@ export default function ProductPage({ params }: ProductPageProps) {
   const AddToCartPopup = ({ isOpen, onClose, productTitle }: CartProps) => {
     return (
       <AlertDialog open={isOpen} onOpenChange={onClose}>
-        <AlertDialogContent className="text-white bg-black/60">
+        <AlertDialogContent className=" bg-white">
           <div className="flex items-center space-x-2 mb-4">
             <ShoppingCart className="h-6 w-6 text-green-500" />
             <AlertDialogTitle className="text-lg font-semibold ">
