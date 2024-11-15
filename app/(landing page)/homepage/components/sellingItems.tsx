@@ -4,6 +4,9 @@ import {
   MusicalDatas,
   ProductDatas,
   LimitedDatas,
+  GiftCardDatas,
+  MicrophonesData,
+  PianoDatas,
 } from "@/app/utils/ProductData";
 
 export default function sellingItems() {
@@ -25,6 +28,21 @@ export default function sellingItems() {
         <h1 className="font-bold mb-2">Musical Gadgets</h1>
 
         <ProductList products={MusicalDatas} />
+      </div>
+      <div className="bg-white shadow-xl p-5 min-h-[45vh] rounded-[6px] my-3">
+        <h1 className="font-bold mb-2">Gift Cards</h1>
+
+        <ProductList products={GiftCardDatas} />
+      </div>
+      <div className="bg-white shadow-xl p-5 min-h-[45vh] rounded-[6px] my-3">
+        <h1 className="font-bold mb-2">Microphones</h1>
+
+        <ProductList products={MicrophonesData} />
+      </div>
+      <div className="bg-white shadow-xl p-5 min-h-[45vh] rounded-[6px] my-3">
+        <h1 className="font-bold mb-2">Synthesizer keyboards</h1>
+
+        <ProductList products={PianoDatas} />
       </div>
     </div>
   );

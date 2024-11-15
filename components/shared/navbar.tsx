@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { Menu, X, Search } from "lucide-react";
+import { Menu, X, Search, ShoppingCart } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import logo from "../../public/parallel.jpg";
@@ -8,6 +8,7 @@ import { AllProductDatas, ProductDatas } from "@/app/utils/ProductData";
 import { useAuth0 } from "@auth0/auth0-react";
 import SearchResults from "./SearchResults";
 import NavLinks from "./navlinks";
+import { useCart } from "@/app/context/cart-context";
 
 const Navbar: React.FC = () => {
   const { loginWithRedirect, logout, isAuthenticated, user, isLoading } =
@@ -71,8 +72,13 @@ const Navbar: React.FC = () => {
       }
     : null;
 
+  const { cartCount } = useCart(); // Access cartCount from the CartContext
+  // const linkClass = mobile
+  //   ? "block text-gray-700 hover:text-orange-500 py-2"
+  //   : "flex items-center text-gray-700 hover:text-orange-500";
+
   return (
-    <nav className="bg-white shadow-md relative">
+    <nav className="bg-white shadow-md sticky top-0 z-50 ">
       <div className="max-w-7xl mx-auto px-4 lg:flex">
         <div className="flex justify-between items-center py-4">
           <Link
@@ -89,7 +95,19 @@ const Navbar: React.FC = () => {
             />
           </Link>
 
-          <div className="md:hidden">
+          <div className="md:hidden flex items-center gap-2">
+            <Link href="/cart">
+              <div className="flex items-center gap-1 relative lg:hidden">
+                <ShoppingCart className="lg:h-5 lg:w-5 w-5 h-4 mr-1 text-orange-500" />
+                <span className="text-xs">Cart</span>
+                {/* Cart Count Notification */}
+                {cartCount > 0 && (
+                  <span className="absolute top-0 right-0 text-xs text-white bg-red-500 rounded-full w-5 h-5 flex items-center justify-center">
+                    {cartCount}
+                  </span>
+                )}
+              </div>
+            </Link>
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="text-gray-700 hover:text-orange-500 focus:outline-none"

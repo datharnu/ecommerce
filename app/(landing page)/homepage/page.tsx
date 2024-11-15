@@ -13,7 +13,7 @@ export default function Homepage() {
         <AnnouncementBanner />
         <CarouselDemo />
         <ExploreCategories />
-        <div className="my-10 mb-20 lg:mb-10">
+        <div className="my-10 ">
           <CardComponent
             title={"  The best Cards won't last long"}
             subTitle="Don't miss this chance to save with code TCGIFT24"

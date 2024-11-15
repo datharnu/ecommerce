@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 
 const Footer = () => {
   return (
-    <footer className="bg-[#fffbf9] text-gray-700 text-xs py-12">
+    <footer className="bg-[#fffbf9] text-gray-700 text-xs pb-4 mt-auto">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
@@ -92,9 +92,13 @@ const Footer = () => {
               <Input
                 type="email"
                 placeholder="Enter your email"
-                className="bg-gray-800 text-white mr-2"
+                className="mr-2"
               />
-              <Button type="submit" variant="secondary">
+              <Button
+                type="submit"
+                variant="secondary"
+                className="bg-orange-400 text-white"
+              >
                 Subscribe
               </Button>
             </form>
@@ -111,7 +115,7 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <div className="border-t border-gray-800 mt-12 pt-8 text-center text-sm text-gray-400">
+        <div className="border-t border-gray-200 mt-5 pt-2 text-center text-xs text-gray-400">
           <p>&copy; 2024 Your E-commerce Store. All rights reserved.</p>
         </div>
       </div>

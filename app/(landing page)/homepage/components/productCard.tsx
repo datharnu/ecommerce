@@ -195,7 +195,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
         </div>
         <div className="p-4">
           <p
-            className="text-sm font-medium h-10 overflow-hidden"
+            className="lg:text-sm text-xs font-medium h-10 overflow-hidden"
             title={product.title}
           >
             {truncateTitle(product.title, 40)}

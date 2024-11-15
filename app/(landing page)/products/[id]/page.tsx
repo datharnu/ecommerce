@@ -275,7 +275,11 @@
 import React, { useEffect, useState } from "react";
 import { Star, Info, ShoppingCart } from "lucide-react";
 import Image, { StaticImageData } from "next/image";
-import { AllProductDatas } from "@/app/utils/ProductData";
+import {
+  AllProductDatas,
+  LimitedDatas,
+  MusicalDatas,
+} from "@/app/utils/ProductData";
 // import PaymentIcons from "./components/PaymentIcons";
 import ProductCard from "../../homepage/components/productCard";
 import { useCart } from "@/app/context/cart-context";
@@ -296,6 +300,7 @@ import { AlertDialogTitle } from "@radix-ui/react-alert-dialog";
 
 import CardComponent from "@/components/shared/CardComponent";
 import AuthBuyButton from "../../payment/components/AuthByButton";
+import ProductList from "../../homepage/components/productList";
 
 interface Product {
   id: number;
@@ -408,25 +413,26 @@ export default function ProductPage({ params }: ProductPageProps) {
         {/* Left column - Product Images */}
         <div className="md:w-1/3 pr-4 mx-auto">
           <div className="max-h-[400px]">
-            <div className="w-full max-w-[400px] h-[300px] lg:h-[400px] flex items-center justify-center mt-10">
+            <div className="w-full max-w-[400px] h-full flex items-center justify-center mt-10">
               <Image
                 src={currentImage || product.image}
                 alt={product.title}
                 width={400}
                 height={400}
-                className="w-full max-h-[400px]"
+                className="w-[400px] h-[400px] object-contain"
               />
             </div>
           </div>
-          <div className="flex mt-5">
+
+          <div className="flex mt-5  max-w-[200px] h-full">
             {[product.image, ...product.additionalImages].map((img, index) => (
               <Image
                 key={index}
                 src={img}
                 alt={`Thumbnail ${index + 1}`}
-                width={400}
-                height={400}
-                className="mr-2 cursor-pointer border-2 rounded-xl w-12 h-12"
+                width={100}
+                height={100}
+                className="mr-2 cursor-pointer border-2 rounded-xl min-w-[40px] h-[40px] object-contain"
                 onClick={() => setCurrentImage(img)}
               />
             ))}
@@ -434,7 +440,7 @@ export default function ProductPage({ params }: ProductPageProps) {
         </div>
         {/* Right column - Product Details */}
         <div className="md:w-1/2 mt-4 md:mt-0">
-          <h1 className="text-lg font-semibold ">{product.title}</h1>
+          <h1 className="lg:text-lg text-sm font-semibold ">{product.title}</h1>
           <div className="flex items-center mt-2">
             <span className="text-yellow-400 flex">
               {[...Array(Math.floor(product.rating.rate))].map((_, i) => (
@@ -462,7 +468,9 @@ export default function ProductPage({ params }: ProductPageProps) {
           </div>
           <div className="mt-4">
             <h2 className="font-semibold">About this item</h2>
-            <p className="mt-2">{product.description}</p>
+            <p className="mt-2 text-[14px] lg:text-base">
+              {product.description}
+            </p>
           </div>
           <div className="mt-4">
             <button
@@ -538,22 +546,16 @@ export default function ProductPage({ params }: ProductPageProps) {
       <div className="my-5 max-w-7xl mx-auto">
         <div className="bg-white shadow-xl p-5 min-h-[45vh] rounded-[6px]">
           <h1 className="font-bold mb-2">Products related to this item</h1>
-
-          <ProductCard
-            product={{
-              id: 0,
-              title: "",
-              price: 0,
-              rating: {
-                rate: 0,
-                count: 0,
-              },
-              image: "",
-            }}
-          />
+          <ProductList products={LimitedDatas} />
         </div>
       </div>
 
+      <div className="my-5 max-w-7xl mx-auto">
+        <div className="bg-white shadow-xl p-5 min-h-[45vh] rounded-[6px]">
+          <h1 className="font-bold mb-2">Musical Gadgets</h1>
+          <ProductList products={MusicalDatas} />
+        </div>
+      </div>
       <AddToCartPopup
         isOpen={isPopupOpen}
         onClose={() => setIsPopupOpen(false)}

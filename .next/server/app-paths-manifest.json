@@ -1,7 +1,8 @@
 {
+  "/_not-found/page": "app/_not-found/page.js",
   "/(auth)/login/page": "app/(auth)/login/page.js",
   "/(landing page)/page": "app/(landing page)/page.js",
-  "/(landing page)/cart/page": "app/(landing page)/cart/page.js",
-  "/(landing page)/contact/page": "app/(landing page)/contact/page.js",
-  "/(landing page)/terms-of-service/page": "app/(landing page)/terms-of-service/page.js"
+  "/(landing page)/faq/page": "app/(landing page)/faq/page.js",
+  "/(landing page)/products/[id]/page": "app/(landing page)/products/[id]/page.js",
+  "/(landing page)/cart/page": "app/(landing page)/cart/page.js"
 }

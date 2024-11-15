@@ -96,7 +96,7 @@ export const NavLinks: React.FC<NavLinksProps> = ({
       </div>
 
       <Link href="/cart" className={linkClass}>
-        <div className="flex items-center gap-1 relative">
+        <div className=" items-center gap-1 relative hidden  lg:flex">
           <ShoppingCart className="lg:h-5 lg:w-5 w-4 h-4 mr-1" />
           <span className="text-xs">Cart</span>
           {/* Cart Count Notification */}
