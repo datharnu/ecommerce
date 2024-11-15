@@ -120,18 +120,19 @@ export default function TermsPage() {
             case of a refund is not sustainable for us. We have made every
             effort to display as accurately as possible the colors and images of
             our products that appear at the store. We cannot guarantee that your
-            computer monitor's display of any color will be accurate. We reserve
-            the right, but are not obligated, to limit the sales of our products
-            or Services to any person, geographic region or jurisdiction. We may
-            exercise this right on a case-by-case basis. We reserve the right to
-            limit the quantities of any products or services that we offer. All
-            descriptions of products or product pricing are subject to change at
-            anytime without notice, at the sole discretion of us. We reserve the
-            right to discontinue any product at any time. Any offer for any
-            product or service made on this site is void where prohibited. We do
-            not warrant that the quality of any products, services, information,
-            or other material purchased or obtained by you will meet your
-            expectations, or that any errors in the Service will be corrected.
+            computer monitor&apos;s display of any color will be accurate. We
+            reserve the right, but are not obligated, to limit the sales of our
+            products or Services to any person, geographic region or
+            jurisdiction. We may exercise this right on a case-by-case basis. We
+            reserve the right to limit the quantities of any products or
+            services that we offer. All descriptions of products or product
+            pricing are subject to change at anytime without notice, at the sole
+            discretion of us. We reserve the right to discontinue any product at
+            any time. Any offer for any product or service made on this site is
+            void where prohibited. We do not warrant that the quality of any
+            products, services, information, or other material purchased or
+            obtained by you will meet your expectations, or that any errors in
+            the Service will be corrected.
           </p>
         </section>
         <section>
@@ -191,7 +192,7 @@ export default function TermsPage() {
             liable for any harm or damages related to the purchase or use of
             goods, services, resources, content, or any other transactions made
             in connection with any third-party websites. Please review carefully
-            the third-party's policies and practices and make sure you
+            the third-party&apos;s policies and practices and make sure you
             understand them before you engage in any transaction. Complaints,
             claims, concerns, or questions regarding third-party products should
             be directed to the third-party.
@@ -206,28 +207,28 @@ export default function TermsPage() {
             example contest entries) or without a request from us you send
             creative ideas, suggestions, proposals, plans, or other materials,
             whether online, by email, by postal mail, or otherwise
-            (collectively, 'comments'), you agree that we may, at any time,
-            without restriction, edit, copy, publish, distribute, translate and
-            otherwise use in any medium any comments that you forward to us. We
-            are and shall be under no obligation (1) to maintain any comments in
-            confidence; (2) to pay compensation for any comments; or (3) to
-            respond to any comments. We may, but have no obligation to, monitor,
-            edit or remove content that we determine in our sole discretion are
-            unlawful, offensive, threatening, libelous, defamatory,
-            pornographic, obscene or otherwise objectionable or violates any
-            party’s intellectual property or these Terms of Service. You agree
-            that your comments will not violate any right of any third-party,
-            including copyright, trademark, privacy, personality or other
-            personal or proprietary right. You further agree that your comments
-            will not contain libelous or otherwise unlawful, abusive or obscene
-            material, or contain any computer virus or other malware that could
-            in any way affect the operation of the Service or any related
-            website. You may not use a false e-mail address, pretend to be
-            someone other than yourself, or otherwise mislead us or
-            third-parties as to the origin of any comments. You are solely
-            responsible for any comments you make and their accuracy. We take no
-            responsibility and assume no liability for any comments posted by
-            you or any third-party.
+            (collectively, &apos;comments&apos;), you agree that we may, at any
+            time, without restriction, edit, copy, publish, distribute,
+            translate and otherwise use in any medium any comments that you
+            forward to us. We are and shall be under no obligation (1) to
+            maintain any comments in confidence; (2) to pay compensation for any
+            comments; or (3) to respond to any comments. We may, but have no
+            obligation to, monitor, edit or remove content that we determine in
+            our sole discretion are unlawful, offensive, threatening, libelous,
+            defamatory, pornographic, obscene or otherwise objectionable or
+            violates any party&apos;s intellectual property or these Terms of
+            Service. You agree that your comments will not violate any right of
+            any third-party, including copyright, trademark, privacy,
+            personality or other personal or proprietary right. You further
+            agree that your comments will not contain libelous or otherwise
+            unlawful, abusive or obscene material, or contain any computer virus
+            or other malware that could in any way affect the operation of the
+            Service or any related website. You may not use a false e-mail
+            address, pretend to be someone other than yourself, or otherwise
+            mislead us or third-parties as to the origin of any comments. You
+            are solely responsible for any comments you make and their accuracy.
+            We take no responsibility and assume no liability for any comments
+            posted by you or any third-party.
           </p>
         </section>
         <section>
@@ -298,24 +299,24 @@ export default function TermsPage() {
             agree that your use of, or inability to use, the service is at your
             sole risk. The service and all products and services delivered to
             you through the service are (except as expressly stated by us)
-            provided 'as is' and 'as available' for your use, without any
-            representation, warranties or conditions of any kind, either express
-            or implied, including all implied warranties or conditions of
-            merchantability, merchantable quality, fitness for a particular
-            purpose, durability, title, and non-infringement. In no case shall
-            AdoredVintage, our directors, officers, employees, affiliates,
-            agents, contractors, interns, suppliers, service providers or
-            licensors be liable for any injury, loss, claim, or any direct,
-            indirect, incidental, punitive, special, or consequential damages of
-            any kind, including, without limitation lost profits, lost revenue,
-            lost savings, loss of data, replacement costs, or any similar
-            damages, whether based in contract, tort (including negligence),
-            strict liability or otherwise, arising from your use of any of the
-            service or any products procured using the service, or for any other
-            claim related in any way to your use of the service or any product,
-            including, but not limited to, any errors or omissions in any
-            content, or any loss or damage of any kind incurred as a result of
-            the use of the service or any content (or product) posted,
+            provided &apos;as is&apos; and &apos;as available&apos; for your
+            use, without any representation, warranties or conditions of any
+            kind, either express or implied, including all implied warranties or
+            conditions of merchantability, merchantable quality, fitness for a
+            particular purpose, durability, title, and non-infringement. In no
+            case shall AdoredVintage, our directors, officers, employees,
+            affiliates, agents, contractors, interns, suppliers, service
+            providers or licensors be liable for any injury, loss, claim, or any
+            direct, indirect, incidental, punitive, special, or consequential
+            damages of any kind, including, without limitation lost profits,
+            lost revenue, lost savings, loss of data, replacement costs, or any
+            similar damages, whether based in contract, tort (including
+            negligence), strict liability or otherwise, arising from your use of
+            any of the service or any products procured using the service, or
+            for any other claim related in any way to your use of the service or
+            any product, including, but not limited to, any errors or omissions
+            in any content, or any loss or damage of any kind incurred as a
+            result of the use of the service or any content (or product) posted,
             transmitted, or otherwise made available via the service, even if
             advised of their possibility. Because some states or jurisdictions
             do not allow the exclusion or the limitation of liability for
@@ -331,10 +332,10 @@ export default function TermsPage() {
             parent, subsidiaries, affiliates, partners, officers, directors,
             agents, contractors, licensors, service providers, subcontractors,
             suppliers, interns and employees, harmless from any claim or demand,
-            including reasonable attorneys’ fees, made by any third-party due to
-            or arising out of your breach of these Terms of Service or the
-            documents they incorporate by reference, or your violation of any
-            law or the rights of a third-party.
+            including reasonable attorneys&apos; fees, made by any third-party
+            due to or arising out of your breach of these Terms of Service or
+            the documents they incorporate by reference, or your violation of
+            any law or the rights of a third-party.
           </p>
         </section>
         <section>
