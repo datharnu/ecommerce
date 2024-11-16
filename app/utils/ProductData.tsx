@@ -632,7 +632,7 @@ export const MusicalDatas: ProductBase[] = [
 
 export const LimitedDatas: ProductBase[] = [
   {
-    id: 11,
+    id: 60,
     title:
       "Novation MiniNova Analogue Modelling Compact 37 Mini-key Synth – Tough, compact, powerful mini-synth with pitch-correcting effect vocoder, 256 onboard sounds and five effects per voice layering Blue",
     price: 350.0,
@@ -1489,7 +1489,7 @@ export const PianoDatas: ProductBase[] = [
     },
   },
   {
-    id: 11,
+    id: 60,
     title:
       "Novation MiniNova Analogue Modelling Compact 37 Mini-key Synth – Tough, compact, powerful mini-synth with pitch-correcting effect vocoder, 256 onboard sounds and five effects per voice layering Blue",
     price: 350.0,

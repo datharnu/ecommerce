@@ -152,7 +152,7 @@ const ShippingForm = () => {
             {/* Contact Section */}
             <div className="mb-8">
               <div className="flex justify-between items-center mb-6">
-                <h2 className="text-2xl font-bold">Contact</h2>
+                <h2 className="lg:text-2xl text-lg font-bold">Contact</h2>
               </div>
 
               <div className="space-y-4">
@@ -182,7 +182,7 @@ const ShippingForm = () => {
 
             {/* Delivery Section */}
             <div>
-              <h2 className="text-2xl font-bold mb-6">Delivery</h2>
+              <h2 className="lg:text-2xl text-lg font-bold mb-6">Delivery</h2>
 
               <div className="space-y-4">
                 <Select
@@ -292,7 +292,9 @@ const ShippingForm = () => {
 
             {/* Shipping Method Section */}
             <div className="mt-8 ">
-              <h2 className="text-2xl font-bold mb-6">Shipping method</h2>
+              {/* <h2 className="lg:text-2xl text-lg font-bold mb-6">
+                Shipping method
+              </h2> */}
               <div className="bg-yellow-50 p-2 rounded-md border-2 ">
                 <p className="text-gray-600 text-xs lg:text-sm">
                   Enter your shipping address to view available shipping

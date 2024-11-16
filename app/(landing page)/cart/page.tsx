@@ -61,8 +61,8 @@ export default function CartPage() {
                   height={80}
                   className="rounded-md mr-4"
                 />
-                <div className="flex-grow">
-                  <h3 className="font-semibold">{item.title}</h3>
+                <div className="flex-grow max-w-[35%]">
+                  <h3 className="font-semibold  truncate ">{item.title}</h3>
                   <p className="text-sm text-gray-500">
                     ${item.price.toFixed(2)}
                   </p>

@@ -1,5 +1,5 @@
 // "use client";
-// import React, { useState, useEffect } from "react";
+// import React, { useState, useEffect, Suspense } from "react";
 // import { Button } from "@/components/ui/button";
 // import { Bitcoin, Copy } from "lucide-react";
 // import { useSearchParams, useRouter } from "next/navigation";
@@ -17,21 +17,51 @@
 // import { toast } from "react-hot-toast";
 // import ShippingForm from "./components/shipping-form";
 
-// const PaymentPage = () => {
+// interface ProductData {
+//   id: number;
+//   title: string;
+//   price: number;
+//   quantity: number;
+// }
+
+// // Separate component for the payment content
+// const PaymentContent = () => {
 //   const [selectedMethod, setSelectedMethod] = useState<string | null>(null);
 //   const [walletAddress, setWalletAddress] = useState("");
 //   const [showWalletAddress, setShowWalletAddress] = useState(false);
 //   const [walletAddressTimeout, setWalletAddressTimeout] = useState<ReturnType<
 //     typeof setTimeout
 //   > | null>(null);
-//   const [timeRemaining, setTimeRemaining] = useState(1200); // 20 minutes in seconds
+//   const [timeRemaining, setTimeRemaining] = useState(1200);
 //   const [isLoading, setIsLoading] = useState(false);
 //   const [success, setSuccess] = useState(false);
+//   const [products, setProducts] = useState<ProductData[]>([]);
+//   const [totalPrice, setTotalPrice] = useState(0);
 
 //   const searchParams = useSearchParams();
-//   const productTitle = searchParams.get("title");
-//   const price = Number(searchParams.get("price"));
 //   const router = useRouter();
+
+//   // Parse products from URL parameters
+//   useEffect(() => {
+//     try {
+//       const productParams = searchParams.getAll("products[]");
+//       if (productParams.length > 0) {
+//         const parsedProducts = productParams.map((param) =>
+//           JSON.parse(decodeURIComponent(param))
+//         );
+//         setProducts(parsedProducts);
+
+//         // Calculate total price
+//         const total = parsedProducts.reduce((sum, product) => {
+//           return sum + product.price * product.quantity;
+//         }, 0);
+//         setTotalPrice(total);
+//       }
+//     } catch (error) {
+//       console.error("Error parsing products:", error);
+//       toast.error("Error loading product details");
+//     }
+//   }, [searchParams]);
 
 //   const paymentOptions = [
 //     {
@@ -79,7 +109,6 @@
 
 //   const successPayment = () => {
 //     setSuccess(true);
-
 //     setTimeout(() => {
 //       setShowWalletAddress(false);
 //     }, 3000);
@@ -92,143 +121,163 @@
 //     setWalletAddress(option.walletAddress);
 //     setIsLoading(true);
 
-//     // Simulate loading for 5 seconds
 //     setTimeout(() => {
 //       setShowWalletAddress(true);
 //       setIsLoading(false);
 
-//       // Set a timeout to hide the wallet address after 20 minutes
 //       setWalletAddressTimeout(
 //         setTimeout(() => {
 //           setShowWalletAddress(false);
 //           router.push(`/wallet-address-expired?method=${option.id}`);
-//         }, 1000 * 60 * 20)
+//         }, 1200000) // 20 minutes
 //       );
 
-//       // Start the countdown timer
 //       const interval = setInterval(() => {
 //         setTimeRemaining((prevTime) => prevTime - 1);
 //       }, 1000);
 
-//       // Clean up the interval when the component unmounts
 //       return () => clearInterval(interval);
 //     }, 2000);
 //   };
 
 //   useEffect(() => {
 //     return () => {
-//       // Clean up the wallet address timeout when the component unmounts
 //       if (walletAddressTimeout) {
 //         clearTimeout(walletAddressTimeout);
 //       }
 //     };
-//   }, [walletAddressTimeout, router]);
+//   }, [walletAddressTimeout]);
 
 //   return (
-//     <div className="lg:flex ">
-//       {/* ShippingForm component */}
-//       <ShippingForm />
-//       <div className="max-w-md mx-auto">
-//         <div className="overflow-hidden">
-//           <div className="px-6 py-8">
-//             <h1 className="text-2xl font-bold text-center mb-8">
-//               Choose Payment Method
-//             </h1>
+//     <div className="max-w-md mx-auto">
+//       <div className="overflow-hidden">
+//         <div className="px-6 py-8">
+//           <h1 className="lg:text-2xl text-xl font-bold text-center mb-8">
+//             Choose Payment Method
+//           </h1>
 
-//             <div className="bg-gray-50 p-4 rounded-lg shadow-sm mb-6">
-//               <p className="text-sm text-gray-600 mb-2 font-bold">
-//                 Product: <span className="font-normal">{productTitle}</span>
-//               </p>
-//               <p className="text-2xl font-bold text-[#f58d08]">
-//                 ${price?.toFixed(2)}
-//               </p>
-//             </div>
-
-//             {!selectedMethod ? (
-//               <div className="space-y-3">
-//                 {paymentOptions.map((option) => (
-//                   <Button
-//                     key={option.id}
-//                     variant="outline"
-//                     className={`w-full flex items-center justify-start space-x-3 py-8
-//                       bg-gradient-to-r ${option.gradientColors} ${option.hoverGradient}
-//                       text-white border-none transition-all duration-200
-//                       hover:shadow-lg transform hover:-translate-y-0.5`}
-//                     onClick={() => handlePaymentMethodSelection(option)}
-//                   >
-//                     <div className="bg-white/20 p-2 rounded-full">
-//                       {option.icon}
-//                     </div>
-//                     <div className="flex-1 text-left">
-//                       <p className="font-semibold">{option.title}</p>
-//                       <p className="text-sm text-white/80">
-//                         {option.description}
-//                       </p>
-//                     </div>
-//                   </Button>
-//                 ))}
+//           <div className="bg-gray-50 p-4 rounded-lg shadow-sm mb-6">
+//             {products.map((product, index) => (
+//               <div key={index} className="mb-2">
+//                 <p className="text-sm text-gray-600 font-bold">
+//                   Product:{" "}
+//                   <span className="font-normal text-xs lg:text-sm ">
+//                     {product.title}
+//                   </span>
+//                 </p>
+//                 {/* <p className="text-sm text-gray-600">
+//                   Quantity: {product.quantity} x ${product.price.toFixed(2)}
+//                 </p> */}
 //               </div>
-//             ) : (
-//               <AlertDialog open={showWalletAddress}>
-//                 <AlertDialogContent className=" bg-white">
-//                   <AlertDialogHeader>
-//                     <AlertDialogTitle>Wallet Address</AlertDialogTitle>
-//                   </AlertDialogHeader>
-//                   {isLoading ? (
-//                     <div className="flex items-center justify-center py-6">
-//                       <Spinner />
-//                       <p className="ml-2 text-gray-500">
-//                         Loading wallet address...
-//                       </p>
-//                     </div>
-//                   ) : (
-//                     <div>
-//                       <p className="text-sm text-gray-600 mb-2 font-bold">
-//                         Payment will be automatically detected. Please do not
-//                         close this window.
-//                       </p>
-
-//                       <div className="flex items-center gap-2">
-//                         <p className="text-sm font-bold text-indigo-700">
-//                           {walletAddress}
-//                         </p>
-//                         <button className="" onClick={handleCopyToClipboard}>
-//                           <Copy className="w-3 h-3" />
-//                         </button>
-//                       </div>
-//                       <p className="text-sm text-gray-500 mt-2">
-//                         This wallet address will expire in{" "}
-//                         {Math.floor(timeRemaining / 60)}m {timeRemaining % 60}s
-//                       </p>
-//                     </div>
-//                   )}
-//                   {success && (
-//                     <div className="mt-4 text-green-500 font-semibold text-center">
-//                       Payment confirmed successfully!
-//                     </div>
-//                   )}
-//                   <AlertDialogFooter className="mt-3 flex-col gap-5">
-//                     <Button
-//                       className="bg-green-700 hover:bg-green-500 text-white"
-//                       // onClick={() => setShowWalletAddress(false)}
-//                       onClick={successPayment}
-//                     >
-//                       Confirm Payment
-//                     </Button>
-
-//                     <Button
-//                       className="bg-red-700 hover:bg-red-500 text-white"
-//                       onClick={() => window.location.reload()}
-//                     >
-//                       Cancel payment
-//                     </Button>
-//                   </AlertDialogFooter>
-//                 </AlertDialogContent>
-//               </AlertDialog>
-//             )}
+//             ))}
+//             <p className="text-xl font-bold text-[#f58d08] mt-2">
+//               Total: ${totalPrice.toFixed(2)}
+//             </p>
 //           </div>
+
+//           {!selectedMethod ? (
+//             <div className="space-y-3">
+//               {paymentOptions.map((option) => (
+//                 <Button
+//                   key={option.id}
+//                   variant="outline"
+//                   className={`w-full flex items-center justify-start space-x-3 py-8
+//                     bg-gradient-to-r ${option.gradientColors} ${option.hoverGradient}
+//                     text-white border-none transition-all duration-200
+//                     hover:shadow-lg transform hover:-translate-y-0.5`}
+//                   onClick={() => handlePaymentMethodSelection(option)}
+//                 >
+//                   <div className="bg-white/20 p-2 rounded-full">
+//                     {option.icon}
+//                   </div>
+//                   <div className="flex-1 text-left">
+//                     <p className="font-semibold">{option.title}</p>
+//                     <p className="text-sm text-white/80">
+//                       {option.description}
+//                     </p>
+//                   </div>
+//                 </Button>
+//               ))}
+//             </div>
+//           ) : (
+//             <AlertDialog open={showWalletAddress}>
+//               <AlertDialogContent className="bg-white">
+//                 <AlertDialogHeader>
+//                   <AlertDialogTitle>Wallet Address</AlertDialogTitle>
+//                 </AlertDialogHeader>
+//                 {isLoading ? (
+//                   <div className="flex items-center justify-center py-6">
+//                     <Spinner />
+//                     <p className="ml-2 text-gray-500">
+//                       Loading wallet address...
+//                     </p>
+//                   </div>
+//                 ) : (
+//                   <div>
+//                     <p className="text-sm text-gray-600 mb-2 font-bold">
+//                       Payment will be automatically detected. Please do not
+//                       close this window.
+//                     </p>
+
+//                     <div className="flex items-center gap-2">
+//                       <p className="text-sm font-bold text-indigo-700">
+//                         {walletAddress}
+//                       </p>
+//                       <button className="" onClick={handleCopyToClipboard}>
+//                         <Copy className="w-3 h-3" />
+//                       </button>
+//                     </div>
+//                     <p className="text-sm text-gray-500 mt-2">
+//                       This wallet address will expire in{" "}
+//                       {Math.floor(timeRemaining / 60)}m {timeRemaining % 60}s
+//                     </p>
+//                   </div>
+//                 )}
+//                 {success && (
+//                   <div className="mt-4 text-green-500 font-semibold text-center">
+//                     Payment confirmed successfully!
+//                   </div>
+//                 )}
+//                 <AlertDialogFooter className="mt-3 flex-col gap-5">
+//                   <Button
+//                     className="bg-green-700 hover:bg-green-500 text-white"
+//                     onClick={successPayment}
+//                   >
+//                     Confirm Payment
+//                   </Button>
+
+//                   <Button
+//                     className="bg-red-700 hover:bg-red-500 text-white"
+//                     onClick={() => window.location.reload()}
+//                   >
+//                     Cancel payment
+//                   </Button>
+//                 </AlertDialogFooter>
+//               </AlertDialogContent>
+//             </AlertDialog>
+//           )}
 //         </div>
 //       </div>
+//     </div>
+//   );
+// };
+
+// const PaymentLoading = () => {
+//   return (
+//     <div className="flex items-center justify-center min-h-screen">
+//       <Spinner />
+//       <p className="ml-2">Loading payment options...</p>
+//     </div>
+//   );
+// };
+
+// const PaymentPage = () => {
+//   return (
+//     <div className="lg:flex">
+//       <ShippingForm />
+//       <Suspense fallback={<PaymentLoading />}>
+//         <PaymentContent />
+//       </Suspense>
 //     </div>
 //   );
 // };
@@ -238,8 +287,9 @@
 "use client";
 import React, { useState, useEffect, Suspense } from "react";
 import { Button } from "@/components/ui/button";
-import { Bitcoin, Copy } from "lucide-react";
+import { Bitcoin, Copy, Check } from "lucide-react";
 import { useSearchParams, useRouter } from "next/navigation";
+import { useToast } from "@/hooks/use-toast";
 import ETH from "@/components/icons/eth";
 import BNB from "@/components/icons/bnb";
 import Solana from "@/components/icons/solana";
@@ -251,7 +301,6 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import Spinner from "@/components/shared/Spinner";
-import { toast } from "react-hot-toast";
 import ShippingForm from "./components/shipping-form";
 
 interface ProductData {
@@ -261,7 +310,6 @@ interface ProductData {
   quantity: number;
 }
 
-// Separate component for the payment content
 const PaymentContent = () => {
   const [selectedMethod, setSelectedMethod] = useState<string | null>(null);
   const [walletAddress, setWalletAddress] = useState("");
@@ -271,14 +319,16 @@ const PaymentContent = () => {
   > | null>(null);
   const [timeRemaining, setTimeRemaining] = useState(1200);
   const [isLoading, setIsLoading] = useState(false);
+  const [isConfirmingPayment, setIsConfirmingPayment] = useState(false);
   const [success, setSuccess] = useState(false);
   const [products, setProducts] = useState<ProductData[]>([]);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [isCopied, setIsCopied] = useState(false);
 
   const searchParams = useSearchParams();
   const router = useRouter();
+  const { toast } = useToast();
 
-  // Parse products from URL parameters
   useEffect(() => {
     try {
       const productParams = searchParams.getAll("products[]");
@@ -288,7 +338,6 @@ const PaymentContent = () => {
         );
         setProducts(parsedProducts);
 
-        // Calculate total price
         const total = parsedProducts.reduce((sum, product) => {
           return sum + product.price * product.quantity;
         }, 0);
@@ -296,9 +345,13 @@ const PaymentContent = () => {
       }
     } catch (error) {
       console.error("Error parsing products:", error);
-      toast.error("Error loading product details");
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Error loading product details",
+      });
     }
-  }, [searchParams]);
+  }, [searchParams, toast]);
 
   const paymentOptions = [
     {
@@ -339,16 +392,51 @@ const PaymentContent = () => {
     },
   ];
 
-  const handleCopyToClipboard = () => {
-    navigator.clipboard.writeText(walletAddress);
-    toast.success("Wallet address copied to clipboard!");
+  const handleCopyToClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText(walletAddress);
+      setIsCopied(true);
+      toast({
+        title: "Success",
+        description: "Wallet address copied to clipboard",
+        variant: "default",
+      });
+
+      // Reset the copy icon after 2 seconds
+      setTimeout(() => {
+        setIsCopied(false);
+      }, 2000);
+    } catch (err) {
+      toast({
+        title: "Error",
+        description: "Failed to copy wallet address",
+        variant: "destructive",
+      });
+    }
   };
 
   const successPayment = () => {
-    setSuccess(true);
+    setIsConfirmingPayment(true);
+    toast({
+      title: "Processing",
+      description: "Processing payment...",
+      duration: 20000,
+    });
+
     setTimeout(() => {
-      setShowWalletAddress(false);
-    }, 3000);
+      setIsConfirmingPayment(false);
+      setSuccess(true);
+      toast({
+        title: "Success",
+        description: "Payment processed successfully!",
+        variant: "default",
+      });
+
+      setTimeout(() => {
+        setShowWalletAddress(false);
+        router.push("/payment-success");
+      }, 3000);
+    }, 20000);
   };
 
   const handlePaymentMethodSelection = (
@@ -366,7 +454,7 @@ const PaymentContent = () => {
         setTimeout(() => {
           setShowWalletAddress(false);
           router.push(`/wallet-address-expired?method=${option.id}`);
-        }, 1200000) // 20 minutes
+        }, 1200000)
       );
 
       const interval = setInterval(() => {
@@ -389,22 +477,30 @@ const PaymentContent = () => {
     <div className="max-w-md mx-auto">
       <div className="overflow-hidden">
         <div className="px-6 py-8">
-          <h1 className="text-2xl font-bold text-center mb-8">
+          <h1 className="lg:text-2xl text-lg font-bold text-center mb-2">
             Choose Payment Method
           </h1>
+          <p className="text-xs text-center text-orange-500">
+            We use cryptocurrency for faster, more secure payments with lower
+            fees and enhanced privacy—making your shopping experience smoother
+            and more future-focused.
+          </p>
 
           <div className="bg-gray-50 p-4 rounded-lg shadow-sm mb-6">
             {products.map((product, index) => (
               <div key={index} className="mb-2">
                 <p className="text-sm text-gray-600 font-bold">
-                  Product: <span className="font-normal">{product.title}</span>
+                  Product:{" "}
+                  <span className="font-normal text-xs lg:text-sm">
+                    {product.title}
+                  </span>
                 </p>
-                <p className="text-sm text-gray-600">
+                {/* <p className="text-sm text-gray-600">
                   Quantity: {product.quantity} x ${product.price.toFixed(2)}
-                </p>
+                </p> */}
               </div>
             ))}
-            <p className="text-2xl font-bold text-[#f58d08] mt-2">
+            <p className="text-xl font-bold text-[#f58d08] mt-2">
               Total: ${totalPrice.toFixed(2)}
             </p>
           </div>
@@ -446,6 +542,16 @@ const PaymentContent = () => {
                       Loading wallet address...
                     </p>
                   </div>
+                ) : isConfirmingPayment ? (
+                  <div className="flex flex-col items-center justify-center py-6">
+                    <Spinner />
+                    <p className="mt-4 text-gray-700 font-medium">
+                      Processing Payment...
+                    </p>
+                    <p className="text-sm text-gray-500 mt-2">
+                      Please don't close this window
+                    </p>
+                  </div>
                 ) : (
                   <div>
                     <p className="text-sm text-gray-600 mb-2 font-bold">
@@ -457,8 +563,16 @@ const PaymentContent = () => {
                       <p className="text-sm font-bold text-indigo-700">
                         {walletAddress}
                       </p>
-                      <button className="" onClick={handleCopyToClipboard}>
-                        <Copy className="w-3 h-3" />
+                      <button
+                        className="p-1 hover:bg-gray-100 rounded-full transition-colors"
+                        onClick={handleCopyToClipboard}
+                        aria-label="Copy wallet address"
+                      >
+                        {isCopied ? (
+                          <Check className="w-4 h-4 text-green-500" />
+                        ) : (
+                          <Copy className="w-4 h-4 text-gray-500" />
+                        )}
                       </button>
                     </div>
                     <p className="text-sm text-gray-500 mt-2">
@@ -476,13 +590,15 @@ const PaymentContent = () => {
                   <Button
                     className="bg-green-700 hover:bg-green-500 text-white"
                     onClick={successPayment}
+                    disabled={isConfirmingPayment}
                   >
-                    Confirm Payment
+                    {isConfirmingPayment ? "Processing..." : "Confirm Payment"}
                   </Button>
 
                   <Button
                     className="bg-red-700 hover:bg-red-500 text-white"
                     onClick={() => window.location.reload()}
+                    disabled={isConfirmingPayment}
                   >
                     Cancel payment
                   </Button>
