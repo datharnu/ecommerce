@@ -549,7 +549,7 @@ const PaymentContent = () => {
                       Processing Payment...
                     </p>
                     <p className="text-sm text-gray-500 mt-2">
-                      Please don't close this window
+                      Please don&apos;t close this window
                     </p>
                   </div>
                 ) : (

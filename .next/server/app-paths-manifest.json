@@ -1,7 +1,7 @@
 {
-  "/(landing page)/page": "app/(landing page)/page.js",
+  "/(landing page)/payment/page": "app/(landing page)/payment/page.js",
   "/(landing page)/cart/page": "app/(landing page)/cart/page.js",
   "/(landing page)/payment-success/page": "app/(landing page)/payment-success/page.js",
-  "/(landing page)/payment/page": "app/(landing page)/payment/page.js",
-  "/(landing page)/homepage/page": "app/(landing page)/homepage/page.js"
+  "/(landing page)/homepage/page": "app/(landing page)/homepage/page.js",
+  "/(landing page)/page": "app/(landing page)/page.js"
 }
