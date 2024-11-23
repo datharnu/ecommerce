@@ -75,7 +75,7 @@ const PaymentContent = () => {
       description: "Pay with Bitcoin",
       gradientColors: "from-orange-500 to-yellow-500",
       hoverGradient: "hover:from-orange-600 hover:to-yellow-600",
-      walletAddress: "1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2",
+      walletAddress: "1GapTmASNYyPfgtF4fUb1pPD42ChVdewRK",
     },
     {
       id: "cryptocur",
@@ -84,7 +84,7 @@ const PaymentContent = () => {
       description: "Pay securely with your Ethereum wallet",
       gradientColors: "from-purple-500 to-indigo-500",
       hoverGradient: "hover:from-purple-600 hover:to-indigo-600",
-      walletAddress: "0x0123456789012345678901234567890123456789",
+      walletAddress: "0xc19aee3eeb3b1021f308badd622548079c10b4e9",
     },
     {
       id: "binance",
@@ -93,7 +93,7 @@ const PaymentContent = () => {
       description: "Pay with BNB",
       gradientColors: "from-blue-500 to-blue-600",
       hoverGradient: "hover:from-blue-600 hover:to-blue-700",
-      walletAddress: "bnb1xyz...abcd",
+      walletAddress: "0xc19aee3eeb3b1021f308badd622548079c10b4e9",
     },
     {
       id: "solana",
@@ -102,7 +102,7 @@ const PaymentContent = () => {
       description: "Pay with Solana",
       gradientColors: "from-blue-500 to-blue-600",
       hoverGradient: "hover:from-blue-600 hover:to-blue-700",
-      walletAddress: "solana1xyz...abcd",
+      walletAddress: "5XyFch1DCY1HeDNSafoMYUupWC4YxDaeikGHAX68UvnR",
     },
   ];
 
